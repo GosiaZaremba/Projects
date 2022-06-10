@@ -1,18 +1,16 @@
 import { Image, View, StyleSheet } from "react-native";
 import { Button } from "../components/Button";
+import { Logo } from "../components/Logo";
 
 export const Home = () => {
   return (
     <View style={styles.outerContainer}>
       <View>
-        <Image
-          source={require("../assets/splash.png")}
-          style={styles.logo}
-        ></Image>
+        <Logo />
       </View>
 
       <View style={styles.innerContainer}>
-        <Button>LogIn</Button>
+        <Button>Login</Button>
         <Button>Register</Button>
         <Button>Reset password</Button>
       </View>
@@ -24,6 +22,7 @@ const styles = StyleSheet.create({
   outerContainer: {
     marginTop: 30,
     alignItems: "center",
+    marginHorizontal: 16,
   },
   innerContainer: {
     width: "100%",
