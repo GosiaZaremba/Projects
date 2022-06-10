@@ -9,6 +9,7 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "./constants/colors";
 import { Home } from "./screens/Home";
+import { Login } from "./screens/Login";
 
 export default function App() {
   return (
@@ -24,7 +25,7 @@ export default function App() {
       >
         <SafeAreaView>
           <View>
-            <Home />
+            <Login />
           </View>
         </SafeAreaView>
       </ImageBackground>
