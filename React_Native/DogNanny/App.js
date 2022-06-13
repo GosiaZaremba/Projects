@@ -11,7 +11,6 @@ import { Colors } from "./constants/colors";
 import { Home } from "./screens/Home";
 import { Login } from "./screens/Login";
 import { RecoverPassword } from "./screens/RecoverPassword";
-
 export default function App() {
   return (
     <LinearGradient
