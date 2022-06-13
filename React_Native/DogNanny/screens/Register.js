@@ -67,7 +67,7 @@ export const Register = () => {
         />
       </View>
       <View style={styles.buttonContainer}>
-        <Button onPress={onPressHandler}>Login</Button>
+        <Button onPress={onPressHandler}>Register</Button>
       </View>
     </View>
   );

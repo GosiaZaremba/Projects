@@ -3,6 +3,7 @@ import { Logo } from "../components/Logo";
 import { Colors } from "../constants/colors";
 import { Button } from "../components/Button";
 import { useState } from "react";
+import { Title } from "../components/Title";
 
 export const RecoverPassword = () => {
   const [emailAddress, setEmailAdress] = useState("");
@@ -18,6 +19,9 @@ export const RecoverPassword = () => {
   return (
     <View style={styles.outerContainer}>
       <Logo />
+      <View>
+        <Title>Please enter Your email.</Title>
+      </View>
       <View style={styles.inputsContainer}>
         <TextInput
           style={styles.inputs}
@@ -31,7 +35,7 @@ export const RecoverPassword = () => {
         />
       </View>
       <View style={styles.buttonContainer}>
-        <Button onPress={onPressHandler}>Login</Button>
+        <Button onPress={onPressHandler}>Recover password</Button>
       </View>
     </View>
   );
