@@ -10,6 +10,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "./constants/colors";
 import { Home } from "./screens/Home";
 import { Login } from "./screens/Login";
+import { Register } from "./screens/Register";
 
 export default function App() {
   return (

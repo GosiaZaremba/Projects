@@ -3,6 +3,7 @@ import { Logo } from "../components/Logo";
 import { Colors } from "../constants/colors";
 import { Button } from "../components/Button";
 import { useState } from "react";
+import { Title } from "../components/Title";
 
 export const Login = () => {
   const [emailAddress, setEmailAdress] = useState("");
@@ -24,6 +25,9 @@ export const Login = () => {
   return (
     <View style={styles.outerContainer}>
       <Logo />
+      <View>
+        <Title>Please Log In</Title>
+      </View>
       <View style={styles.inputsContainer}>
         <TextInput
           style={styles.inputs}
@@ -66,7 +70,7 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
   },
   inputs: {
-    backgroundColor: Colors.secondary.medium,
+    backgroundColor: Colors.secondary.light,
     marginTop: 10,
     padding: 8,
     borderRadius: 25,
