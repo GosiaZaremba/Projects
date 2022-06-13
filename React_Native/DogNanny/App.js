@@ -12,6 +12,8 @@ import { Home } from "./screens/Home";
 import { Login } from "./screens/Login";
 import { RecoverPassword } from "./screens/RecoverPassword";
 import { AddPet } from "./screens/AddPet";
+import { Dashboard } from "./screens/Dashboard";
+
 export default function App() {
   return (
     <LinearGradient
@@ -26,7 +28,7 @@ export default function App() {
       >
         <SafeAreaView>
           <View>
-            <AddPet />
+            <Dashboard />
           </View>
         </SafeAreaView>
       </ImageBackground>
