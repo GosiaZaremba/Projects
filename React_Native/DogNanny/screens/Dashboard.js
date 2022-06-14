@@ -1,7 +1,7 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
-import { Card } from "../components/Card";
+import { FlatList, StyleSheet, View } from "react-native";
 import { Logo } from "../components/Logo";
 import { Title } from "../components/Title";
+import { PetList } from "../components/PetList";
 
 export const Dashboard = () => {
   const data = [
@@ -12,19 +12,26 @@ export const Dashboard = () => {
     <View style={styles.outerContainer}>
       <Logo />
       <Title>Your Pets</Title>
-      {data.map((item) => (
-        <Card key={item.name} name={item.name} photoUrl={item.photo}></Card>
-      ))}
-      {/* <FlatList
-        data={data}
-        renderItem={(itemData) => (
-          <Card
-            name={itemData.item.name}
-            photoUrl={itemData.item.photo}
-            keyExtractor={(item) => item}
-          ></Card>
-        )}
-      /> */}
+      <View style={styles.listContainer}>
+        {data.map((item) => (
+          <PetList
+            key={item.name}
+            name={item.name}
+            photoUrl={item.photo}
+          ></PetList>
+        ))}
+
+        {/* <FlatList
+          data={data}
+          renderItem={(itemData) => (
+            <PetList
+              name={itemData.item.name}
+              photoUrl={itemData.item.photo}
+              keyExtractor={(item) => item}
+            ></PetList>
+          )}
+        /> */}
+      </View>
     </View>
   );
 };
@@ -34,5 +41,8 @@ const styles = StyleSheet.create({
     marginTop: 30,
     alignItems: "center",
     marginHorizontal: 16,
+  },
+  listContainer: {
+    width: "100%",
   },
 });
