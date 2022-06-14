@@ -13,6 +13,7 @@ import { Login } from "./screens/Login";
 import { RecoverPassword } from "./screens/RecoverPassword";
 import { AddPet } from "./screens/AddPet";
 import { Dashboard } from "./screens/Dashboard";
+import { PetPanel } from "./screens/PetPanel";
 
 export default function App() {
   return (
@@ -28,7 +29,7 @@ export default function App() {
       >
         <SafeAreaView>
           <View>
-            <Dashboard />
+            <PetPanel />
           </View>
         </SafeAreaView>
       </ImageBackground>
