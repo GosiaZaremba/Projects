@@ -1,24 +1,61 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import { Logo } from "../components/Logo";
 import { Card } from "../components/Card";
+import { Button } from "../components/Button";
+import { PetPhoto } from "../components/PetPhoto";
+import { PanelButton } from "../components/PanelButton";
+import { Colors } from "../constants/colors";
 
 export const PetPanel = () => {
   return (
     <View>
-      <Logo />
+      <View>
+        <Logo />
+      </View>
       <Card>
-        <Image
-          style={styles.petImage}
-          source={require("../assets/7.jpg")}
-        ></Image>
+        <PetPhoto photoUrl={require("../assets/7.jpg")} />
+        <View styles={styles.innerContainer}>
+          <View style={styles.buttonContainer}>
+            <PanelButton buttonType={require("../assets/images/feed.png")} />
+            <PanelButton buttonType={require("../assets/images/pills.png")} />
+            <PanelButton buttonType={require("../assets/images/play.png")} />
+            <PanelButton buttonType={require("../assets/images/poop.png")} />
+          </View>
+          <View style={styles.dataContainer}>
+            <View style={styles.dataView}>
+              <Text>Today 9:13</Text>
+              <Text>Today 13:29</Text>
+              <Text>Today 17:45</Text>
+            </View>
+            <View style={styles.dataView}>
+              <Text>Today 9:13</Text>
+              <Text>Today 13:29</Text>
+              <Text>Today 17:45</Text>
+            </View>
+            <View style={styles.dataView}>
+              <Text>Today 9:13</Text>
+              <Text>Today 13:29</Text>
+              <Text>Today 17:45</Text>
+            </View>
+          </View>
+        </View>
       </Card>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  petImage: {
-    width: 100,
-    height: 100,
+  buttonContainer: {
+    padding: 10,
+    width: "50%",
+  },
+  innerContainer: {
+    flexDirection: "row",
+  },
+  dataContainer: { width: "50%" },
+  dataView: {
+    backgroundColor: Colors.primary.medium,
+    borderRadius: 15,
+    padding: 10,
   },
 });
