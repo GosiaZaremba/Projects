@@ -1,42 +1,46 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Logo } from "../components/Logo";
 import { Card } from "../components/Card";
-import { Button } from "../components/Button";
 import { PetPhoto } from "../components/PetPhoto";
 import { PanelButton } from "../components/PanelButton";
 import { Colors } from "../constants/colors";
 
 export const PetPanel = () => {
   return (
-    <View>
-      <View>
-        <Logo />
-      </View>
+    <View style={styles.outerContainer}>
+      <Logo />
       <Card>
         <PetPhoto photoUrl={require("../assets/7.jpg")} />
-        <View styles={styles.innerContainer}>
-          <View style={styles.buttonContainer}>
-            <PanelButton buttonType={require("../assets/images/feed.png")} />
-            <PanelButton buttonType={require("../assets/images/pills.png")} />
-            <PanelButton buttonType={require("../assets/images/play.png")} />
-            <PanelButton buttonType={require("../assets/images/poop.png")} />
+        <View style={styles.innerContainer}>
+          <PanelButton buttonType={require("../assets/images/feed.png")} />
+          <View style={styles.dataView}>
+            <Text>Today 9:13</Text>
+            <Text>Today 13:29</Text>
+            <Text>Today 17:45</Text>
           </View>
-          <View style={styles.dataContainer}>
-            <View style={styles.dataView}>
-              <Text>Today 9:13</Text>
-              <Text>Today 13:29</Text>
-              <Text>Today 17:45</Text>
-            </View>
-            <View style={styles.dataView}>
-              <Text>Today 9:13</Text>
-              <Text>Today 13:29</Text>
-              <Text>Today 17:45</Text>
-            </View>
-            <View style={styles.dataView}>
-              <Text>Today 9:13</Text>
-              <Text>Today 13:29</Text>
-              <Text>Today 17:45</Text>
-            </View>
+        </View>
+        <View style={styles.innerContainer}>
+          <PanelButton buttonType={require("../assets/images/poop.png")} />
+          <View style={styles.dataView}>
+            <Text>Today 9:13</Text>
+            <Text>Today 13:29</Text>
+            <Text>Today 17:45</Text>
+          </View>
+        </View>
+        <View style={styles.innerContainer}>
+          <PanelButton buttonType={require("../assets/images/pills.png")} />
+          <View style={styles.dataView}>
+            <Text>Today 9:13</Text>
+            <Text>Today 13:29</Text>
+            <Text>Today 17:45</Text>
+          </View>
+        </View>
+        <View style={styles.innerContainer}>
+          <PanelButton buttonType={require("../assets/images/play.png")} />
+          <View style={styles.dataView}>
+            <Text>Today 9:13</Text>
+            <Text>Today 13:29</Text>
+            <Text>Today 17:45</Text>
           </View>
         </View>
       </Card>
@@ -45,15 +49,17 @@ export const PetPanel = () => {
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    padding: 10,
-    width: "50%",
+  outerContainer: {
+    flex: 1,
   },
   innerContainer: {
+    flex: 1,
     flexDirection: "row",
+    justifyContent: "space-around",
+    alignContent: "center",
   },
-  dataContainer: { width: "50%" },
   dataView: {
+    flex: 2,
     backgroundColor: Colors.primary.medium,
     borderRadius: 15,
     padding: 10,

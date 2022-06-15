@@ -21,16 +21,14 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     elevation: 7,
     marginTop: 10,
-    height: 50,
-    width: 60,
     padding: 5,
   },
   innerContainer: {
     alignItems: "center",
   },
   buttonImage: {
-    height: 40,
-    width: 50,
+    height: 50,
+    width: 60,
     resizeMode: "center",
   },
 });

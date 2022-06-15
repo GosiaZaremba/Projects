@@ -1,11 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ImageBackground,
-  SafeAreaView,
-} from "react-native";
+import { StyleSheet, ImageBackground, SafeAreaView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "./constants/colors";
 import { Home } from "./screens/Home";
@@ -27,10 +21,8 @@ export default function App() {
         style={styles.rootContainer}
         imageStyle={styles.backgroundImge}
       >
-        <SafeAreaView>
-          <View>
-            <PetPanel />
-          </View>
+        <SafeAreaView style={styles.rootContainer}>
+          <PetPanel />
         </SafeAreaView>
       </ImageBackground>
     </LinearGradient>
