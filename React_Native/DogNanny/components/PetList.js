@@ -1,6 +1,7 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../constants/colors";
 import { Card } from "./Card";
+import { PetPhoto } from "./PetPhoto";
 
 export const PetList = ({ onPress, name, photoUrl }) => {
   return (
@@ -15,9 +16,7 @@ export const PetList = ({ onPress, name, photoUrl }) => {
         onPress={onPress}
       >
         <View style={styles.dataContainer}>
-          <View style={styles.imageContainer}>
-            <Image style={styles.image} source={photoUrl} />
-          </View>
+          <PetPhoto photoUrl={photoUrl} />
 
           <Text style={styles.text}>{name}</Text>
         </View>
@@ -34,19 +33,7 @@ const styles = StyleSheet.create({
   pressed: {
     opacity: 0.75,
   },
-  imageContainer: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    elevation: 5,
-  },
-  image: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    borderWidth: 1,
-    borderColor: Colors.secondary.light,
-  },
+
   dataContainer: {
     padding: 5,
     flexDirection: "row",
