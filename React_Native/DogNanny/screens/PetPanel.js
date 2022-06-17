@@ -1,7 +1,6 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View, ScrollView } from "react-native";
 import { Logo } from "../components/Logo";
 import { Card } from "../components/Card";
-import { Button } from "../components/Button";
 import { PetPhoto } from "../components/PetPhoto";
 import { PanelButton } from "../components/PanelButton";
 import { Colors } from "../constants/colors";
@@ -47,10 +46,8 @@ export const PetPanel = () => {
     console.log("plays", playsHistory);
   };
   return (
-    <View>
-      <View>
-        <Logo />
-      </View>
+    <ScrollView style={styles.outerContainer}>
+      <Logo />
       <Card>
         <PetPhoto photoUrl={require("../assets/7.jpg")} />
         <View style={styles.innerContainer}>
@@ -106,22 +103,28 @@ export const PetPanel = () => {
           </View>
         </View>
       </Card>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    padding: 10,
-    width: "50%",
+  outerContainer: {
+    flex: 1,
   },
   innerContainer: {
+    flex: 1,
     flexDirection: "row",
+    justifyContent: "space-around",
+    alignContent: "center",
   },
-  dataContainer: { width: "50%" },
   dataView: {
+    flex: 2,
     backgroundColor: Colors.primary.medium,
     borderRadius: 15,
     padding: 10,
+    margin: 5,
+  },
+  dataText: {
+    color: Colors.secondary.light,
   },
 });

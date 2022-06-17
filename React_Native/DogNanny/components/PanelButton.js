@@ -1,36 +1,38 @@
 import { Image, Pressable, StyleSheet, View } from "react-native";
 import { Colors } from "../constants/colors";
 
-export const PanelButton = ({ buttonType }) => {
+export const PanelButton = ({ buttonType, onPress }) => {
   return (
-    <View style={styles.outerContainer}>
+    <View>
       <Pressable
         style={styles.innerContainer}
         android_ripple={{ color: Colors.primary.light }}
+        onPress={onPress}
       >
-        <Image source={buttonType} style={styles.buttonImage}></Image>
+        <Image
+          source={buttonType}
+          style={styles.buttonImage}
+          resizeMode="contain"
+        ></Image>
       </Pressable>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  outerContainer: {
+  innerContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: Colors.primary.medium,
     borderRadius: 15,
     overflow: "hidden",
     elevation: 7,
-    marginTop: 10,
-    height: 50,
-    width: 60,
-    padding: 5,
-  },
-  innerContainer: {
-    alignItems: "center",
+    padding: 12,
+    margin: 5,
   },
   buttonImage: {
-    height: 40,
-    width: 50,
-    resizeMode: "center",
+    height: 50,
+    width: 60,
   },
 });
