@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
   },
   inputs: {
-    backgroundColor: Colors.secondary.medium,
+    backgroundColor: Colors.secondary.light,
     marginTop: 10,
     padding: 8,
     borderRadius: 25,

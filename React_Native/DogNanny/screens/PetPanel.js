@@ -1,63 +1,74 @@
-import { FlatList, StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Logo } from "../components/Logo";
 import { Card } from "../components/Card";
-import { PetPhoto } from "../components/PetPhoto";
 import { PanelButton } from "../components/PanelButton";
 import { Colors } from "../constants/colors";
 import { useState } from "react";
+import moment from "moment";
+import { PetInfo } from "../components/PetInfo";
 
 export const PetPanel = () => {
   const [walksHistory, setWalksHistory] = useState([]);
   const [feedingHistory, setFeedingHistory] = useState([]);
   const [pillsHistory, setPillsHistory] = useState([]);
-  const [playsHistory, setPlaysHistory] = useState([]);
+  const [playHistory, setPlaysHistory] = useState([]);
+
+  const onPressFood = () => {
+    let date = new Date();
+    const newFeed = moment(date).format("dddd, HH:MM");
+    setFeedingHistory([newFeed, ...feedingHistory]);
+    if (feedingHistory.length > 3) {
+      const newFeeds = feedingHistory.splice(0, 3);
+      setFeedingHistory(newFeeds);
+    }
+    console.log("food", feedingHistory);
+  };
 
   const onPressWalk = () => {
-    setWalksHistory([new Date().toLocaleTimeString(), ...walksHistory]);
-    if (walksHistory.length >= 3) {
-      setWalksHistory([new Date().toLocaleTimeString(), ...walksHistory]);
-      setWalksHistory([walksHistory.pop()]);
+    let date = new Date();
+    const newWalk = moment(date).format("dddd, HH:MM");
+    setWalksHistory([newWalk, ...walksHistory]);
+    if (walksHistory.length > 3) {
+      const newWalks = walksHistory.splice(0, 3);
+      setWalksHistory(newWalks);
     }
     console.log("walks", walksHistory);
   };
 
-  const onPressFood = () => {
-    setFeedingHistory([new Date().toLocaleTimeString(), ...feedingHistory]);
-    if (feedingHistory.length >= 3) {
-      setFeedingHistory([new Date().toLocaleTimeString(), ...feedingHistory]);
-      setFeedingHistory([feedingHistory.pop()]);
-    }
-    console.log("food", feedingHistory);
-  };
   const onPressPills = () => {
-    setPillsHistory([new Date().toLocaleTimeString(), ...pillsHistory]);
-    if (pillsHistory.length >= 3) {
-      setPillsHistory([new Date().toLocaleTimeString(), ...pillsHistory]);
-      setPillsHistory([pillsHistory.pop()]);
+    let date = new Date();
+    const newPill = moment(date).format("dddd, HH:MM");
+    setPillsHistory([newPill, ...pillsHistory]);
+    if (pillsHistory.length > 3) {
+      const newPills = pillsHistory.splice(0, 3);
+      setPillsHistory(newPills);
     }
     console.log("pills", pillsHistory);
   };
   const onPressPlays = () => {
-    setPlaysHistory([new Date().toLocaleTimeString(), ...playsHistory]);
-    if (playsHistory.length >= 3) {
-      setPlaysHistory([new Date().toLocaleTimeString(), ...playsHistory]);
-      setPlaysHistory([playsHistory.pop()]);
+    let date = new Date();
+    const newPlay = moment(date).format("dddd, HH:MM");
+    setPlaysHistory([newPlay, ...playHistory]);
+    if (playHistory.length > 3) {
+      const newPlays = playHistory.splice(0, 3);
+      setPlaysHistory(newPlays);
     }
-    console.log("plays", playsHistory);
+    console.log("plays", playHistory);
   };
   return (
-    <ScrollView style={styles.outerContainer}>
+    <View style={styles.outerContainer}>
       <Logo />
       <Card>
-        <PetPhoto photoUrl={require("../assets/7.jpg")} />
+        <PetInfo />
+
         <View style={styles.innerContainer}>
           <PanelButton
             buttonType={require("../assets/images/feed.png")}
             onPress={onPressFood}
           />
           <View style={styles.dataView}>
-            {feedingHistory.map((food) => (
-              <Text key={food} style={styles.dataText}>
+            {feedingHistory.map((food, index) => (
+              <Text key={index} style={styles.dataText}>
                 {food}
               </Text>
             ))}
@@ -69,8 +80,8 @@ export const PetPanel = () => {
             onPress={onPressWalk}
           />
           <View style={styles.dataView}>
-            {walksHistory.map((walk) => (
-              <Text key={walk} style={styles.dataText}>
+            {walksHistory.map((walk, index) => (
+              <Text key={index} style={styles.dataText}>
                 {walk}
               </Text>
             ))}
@@ -82,8 +93,8 @@ export const PetPanel = () => {
             onPress={onPressPills}
           />
           <View style={styles.dataView}>
-            {pillsHistory.map((pill) => (
-              <Text key={pill} style={styles.dataText}>
+            {pillsHistory.map((pill, index) => (
+              <Text key={index} style={styles.dataText}>
                 {pill}
               </Text>
             ))}
@@ -95,15 +106,15 @@ export const PetPanel = () => {
             onPress={onPressPlays}
           />
           <View style={styles.dataView}>
-            {playsHistory.map((play) => (
-              <Text key={play} style={styles.dataText}>
+            {playHistory.map((play, index) => (
+              <Text key={index} style={styles.dataText}>
                 {play}
               </Text>
             ))}
           </View>
         </View>
       </Card>
-    </ScrollView>
+    </View>
   );
 };
 
@@ -112,10 +123,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   innerContainer: {
-    flex: 1,
     flexDirection: "row",
     justifyContent: "space-around",
     alignContent: "center",
+    minHeight: 90,
+    paddingBottom: 12,
   },
   dataView: {
     flex: 2,
@@ -126,5 +138,7 @@ const styles = StyleSheet.create({
   },
   dataText: {
     color: Colors.secondary.light,
+    marginLeft: 15,
+    fontSize: 16,
   },
 });

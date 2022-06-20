@@ -1,8 +1,8 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import { Colors } from "../constants/colors";
 
 export const Card = ({ children }) => {
-  return <View style={styles.card}>{children}</View>;
+  return <ScrollView style={styles.card}>{children}</ScrollView>;
 };
 const styles = StyleSheet.create({
   card: {
