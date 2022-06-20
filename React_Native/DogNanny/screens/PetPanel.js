@@ -15,13 +15,21 @@ export const PetPanel = () => {
 
   const onPressFood = () => {
     let date = new Date();
-    const newFeed = moment(date).format("dddd, HH:MM");
+    const newFeed = moment(date).format("dddd, HH:mm:ss");
+    const newFoods = [...feedingHistory];
+    newFoods.unshift(newFeed);
+    if (newFoods.length > 3) newFoods.pop();
+    setFeedingHistory([...newFoods]);
+    console.log(newFoods);
+    /*
     setFeedingHistory([newFeed, ...feedingHistory]);
     if (feedingHistory.length > 3) {
       const newFeeds = feedingHistory.splice(0, 3);
       setFeedingHistory(newFeeds);
+      console.log("new foods", newFeeds);
     }
     console.log("food", feedingHistory);
+    */
   };
 
   const onPressWalk = () => {
