@@ -10,7 +10,7 @@ export const Button = ({ children, onPress }) => {
             ? [styles.buttonInnerContainer, styles.pressed]
             : styles.buttonInnerContainer
         }
-        android_ripple={{ color: Colors.primary.medium }}
+        android_ripple={{ color: Colors.primary.light }}
         onPress={onPress}
       >
         <Text style={styles.buttonText}>{children}</Text>
@@ -21,13 +21,16 @@ export const Button = ({ children, onPress }) => {
 
 const styles = StyleSheet.create({
   buttonOuterContainer: {
+    borderWidth: 2,
+    borderColor: Colors.primary.dark,
     borderRadius: 28,
     marginTop: 10,
     overflow: "hidden",
     elevation: 7,
   },
   buttonInnerContainer: {
-    backgroundColor: Colors.primary.dark,
+    backgroundColor: Colors.primary.medium,
+
     paddingVertical: 16,
     paddingHorizontal: 16,
   },

@@ -28,10 +28,4 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "stretch",
   },
-
-  logo: {
-    width: 200,
-    height: 200,
-    resizeMode: "stretch",
-  },
 });

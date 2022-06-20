@@ -22,6 +22,7 @@ export default function App() {
         imageStyle={styles.backgroundImge}
       >
         <SafeAreaView style={styles.rootContainer}>
+          <StatusBar></StatusBar>
           <PetPanel />
         </SafeAreaView>
       </ImageBackground>

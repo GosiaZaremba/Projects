@@ -14,6 +14,7 @@ export const Logo = () => {
 const styles = StyleSheet.create({
   logoContainer: {
     marginTop: 30,
+    alignSelf: "center",
   },
   logo: {
     width: 150,

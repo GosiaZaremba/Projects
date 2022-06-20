@@ -71,6 +71,7 @@ export const AddPet = () => {
           value={form.description}
           onChangeText={(text) => onChangeHandler("description", text)}
           autoCapitalize="sentences"
+          maxLength={140}
         />
         <TextInput
           style={styles.inputs}
