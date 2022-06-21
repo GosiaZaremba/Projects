@@ -15,52 +15,41 @@ export const PetPanel = () => {
 
   const onPressFood = () => {
     let date = new Date();
-    const newFeed = moment(date).format("dddd, HH:mm:ss");
+    const newFeed = moment(date).format("dddd, HH:mm");
     const newFoods = [...feedingHistory];
     newFoods.unshift(newFeed);
     if (newFoods.length > 3) newFoods.pop();
     setFeedingHistory([...newFoods]);
     console.log(newFoods);
-    /*
-    setFeedingHistory([newFeed, ...feedingHistory]);
-    if (feedingHistory.length > 3) {
-      const newFeeds = feedingHistory.splice(0, 3);
-      setFeedingHistory(newFeeds);
-      console.log("new foods", newFeeds);
-    }
-    console.log("food", feedingHistory);
-    */
   };
 
   const onPressWalk = () => {
     let date = new Date();
     const newWalk = moment(date).format("dddd, HH:MM");
-    setWalksHistory([newWalk, ...walksHistory]);
-    if (walksHistory.length > 3) {
-      const newWalks = walksHistory.splice(0, 3);
-      setWalksHistory(newWalks);
-    }
+    const newWalks = [...walksHistory];
+    newWalks.unshift(newWalk);
+    if (newWalks.length > 3) newWalks.pop();
+    setWalksHistory([...newWalks]);
+
     console.log("walks", walksHistory);
   };
 
   const onPressPills = () => {
     let date = new Date();
     const newPill = moment(date).format("dddd, HH:MM");
-    setPillsHistory([newPill, ...pillsHistory]);
-    if (pillsHistory.length > 3) {
-      const newPills = pillsHistory.splice(0, 3);
-      setPillsHistory(newPills);
-    }
+    const newPills = [...pillsHistory];
+    newPills.unshift(newPill);
+    if (newPills.length > 3) newPills.pop();
+    setPillsHistory([...newPills]);
     console.log("pills", pillsHistory);
   };
   const onPressPlays = () => {
     let date = new Date();
     const newPlay = moment(date).format("dddd, HH:MM");
-    setPlaysHistory([newPlay, ...playHistory]);
-    if (playHistory.length > 3) {
-      const newPlays = playHistory.splice(0, 3);
-      setPlaysHistory(newPlays);
-    }
+    const newPlays = [...playHistory];
+    newPlays.unshift(newPlay);
+    if (newPlays.length > 3) newPlays.pop();
+    setPlaysHistory([...newPlays]);
     console.log("plays", playHistory);
   };
   return (
@@ -134,7 +123,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignContent: "center",
-    minHeight: 90,
+    minHeight: 110,
     paddingBottom: 12,
   },
   dataView: {
