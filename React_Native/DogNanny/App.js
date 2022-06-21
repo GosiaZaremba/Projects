@@ -23,7 +23,7 @@ export default function App() {
       >
         <SafeAreaView style={styles.rootContainer}>
           <StatusBar></StatusBar>
-          <PetPanel />
+          <AddPet />
         </SafeAreaView>
       </ImageBackground>
     </LinearGradient>
