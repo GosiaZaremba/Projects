@@ -11,9 +11,10 @@ import {
   PermissionStatus,
   useCameraPermissions,
 } from "expo-image-picker";
+import { storePetData } from "../util/http";
 
 export const AddPet = () => {
-  const [form, setForm] = useState({
+  const [petData, setpetData] = useState({
     name: "",
     breed: "",
     dateOfBirth: "",
@@ -21,15 +22,16 @@ export const AddPet = () => {
   });
 
   const onChangeHandler = (name, value) => {
-    setForm({
-      ...form,
+    setpetData({
+      ...petData,
       [name]: value,
     });
+    console.log(petData);
   };
 
   const onPressHandler = () => {
-    console.log(form);
-    setForm({
+    storePetData(petData);
+    setpetData({
       name: "",
       breed: "",
       dateOfBirth: "",
@@ -72,14 +74,14 @@ export const AddPet = () => {
       <View>
         <Title>Add a pet!</Title>
       </View>
-      <View style={styles.form}>
+      <View style={styles.petData}>
         <AppImagePicker getImage={getImage} pickedImage={pickedImage} />
         <TextInput
           style={styles.inputs}
           placeholder="Name"
           autoCorrect={false}
           spellCheck={false}
-          value={form.name}
+          value={petData.name}
           onChangeText={(text) => onChangeHandler("name", text)}
         />
         <TextInput
@@ -87,7 +89,7 @@ export const AddPet = () => {
           placeholder="Breed"
           autoCorrect={false}
           spellCheck={false}
-          value={form.breed}
+          value={petData.breed}
           onChangeText={(text) => onChangeHandler("breed", text)}
         />
         <TextInput
@@ -96,7 +98,7 @@ export const AddPet = () => {
           placeholder="Date of birth"
           autoCorrect={false}
           spellCheck={false}
-          value={form.dateOfBirth}
+          value={petData.dateOfBirth}
           onChangeText={(text) => onChangeHandler("dateOfBirth", text)}
         />
         <TextInput
@@ -104,7 +106,7 @@ export const AddPet = () => {
           placeholder="Description"
           autoCorrect={false}
           spellCheck={false}
-          value={form.description}
+          value={petData.description}
           onChangeText={(text) => onChangeHandler("description", text)}
           autoCapitalize="sentences"
           maxLength={140}
@@ -129,7 +131,7 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 25,
   },
-  form: {
+  petData: {
     width: "100%",
     alignItems: "stretch",
   },
