@@ -1,10 +1,10 @@
 import { Image, StyleSheet, View } from "react-native";
 import { Colors } from "../constants/colors";
 
-export const PetPhoto = ({ photoUrl }) => {
+export const PetPhoto = ({ photoUrl, pickedImage }) => {
   return (
     <View style={styles.imageContainer}>
-      <Image style={styles.image} source={photoUrl} />
+      <Image style={styles.image} source={pickedImage} />
     </View>
   );
 };
