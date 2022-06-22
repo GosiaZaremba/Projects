@@ -1,12 +1,18 @@
 import { useState } from "react";
-import { StyleSheet, TextInput, View } from "react-native";
+import { Alert, StyleSheet, TextInput, View } from "react-native";
 import { Button } from "../components/Button";
+import { AppImagePicker } from "../components/AppImagePicker";
 import { Logo } from "../components/Logo";
 import { Title } from "../components/Title";
 import { Colors } from "../constants/colors";
+import {
+  launchImageLibraryAsync,
+  MediaTypeOptions,
+  PermissionStatus,
+  useCameraPermissions,
+} from "expo-image-picker";
 
 export const AddPet = () => {
-  const [image, setImage] = useState(null);
   const [form, setForm] = useState({
     name: "",
     breed: "",
@@ -30,6 +36,35 @@ export const AddPet = () => {
       description: "",
     });
   };
+  const [pickedImage, setPickedImage] = useState();
+  const [cameraPermission, requestPermission] = useCameraPermissions();
+  const verifyPermissions = async () => {
+    if (cameraPermission.status === PermissionStatus.UNDETERMINED) {
+      const permissionResponse = await requestPermission();
+
+      return permissionResponse.granted;
+    }
+    if (cameraPermission.status === PermissionStatus.DENIED) {
+      Alert.alert(
+        "Insufficient Permissions!",
+        "You need to grant permission to use this app"
+      );
+      return false;
+    }
+    return true;
+  };
+  const getImage = async () => {
+    const hasPermission = await verifyPermissions();
+    if (!hasPermission) return;
+
+    const image = await launchImageLibraryAsync({
+      mediaTypes: MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 4],
+      quality: 0.5,
+    });
+    setPickedImage(image.uri);
+  };
 
   return (
     <View style={styles.mainContainer}>
@@ -38,6 +73,7 @@ export const AddPet = () => {
         <Title>Add a pet!</Title>
       </View>
       <View style={styles.form}>
+        <AppImagePicker getImage={getImage} pickedImage={pickedImage} />
         <TextInput
           style={styles.inputs}
           placeholder="Name"
@@ -72,13 +108,6 @@ export const AddPet = () => {
           onChangeText={(text) => onChangeHandler("description", text)}
           autoCapitalize="sentences"
           maxLength={140}
-        />
-        <TextInput
-          style={styles.inputs}
-          placeholder="Photo"
-          autoCorrect={false}
-          spellCheck={false}
-          autoCapitalize="none"
         />
       </View>
       <View style={styles.buttonContainer}>
