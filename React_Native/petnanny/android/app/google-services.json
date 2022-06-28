@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "907708370156",
+    "project_id": "petnannyfrb",
+    "storage_bucket": "petnannyfrb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:907708370156:android:c020a86e97314ed20629c9",
+        "android_client_info": {
+          "package_name": "com.petnanny"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "907708370156-b73rr4akj440die2t5nmvpkk6jfnffac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLKZzrIYkMfR8hWi0Nazk88fwttHHww18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "907708370156-b73rr4akj440die2t5nmvpkk6jfnffac.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
