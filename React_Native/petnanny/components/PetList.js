@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
   innerContainer: {
     backgroundColor: Colors.accent.medium,
     padding: 10,
+    borderRadius: 28,
   },
   pressed: {
     opacity: 0.75,
