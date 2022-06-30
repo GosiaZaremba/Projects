@@ -21,15 +21,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from './constants/colors';
 
 const App = () => {
-  // const user = async () => {
-  //   const userDocs = await firestore()
-  //     .collection('Users')
-  //     .doc('TUr8hAdC51oxS8qZGTdi')
-  //     .get();
-  //   console.log(userDocs);
-  // };
-  // user();
-
   return (
     <LinearGradient
       colors={[Colors.primary.medium, Colors.accent.dark]}

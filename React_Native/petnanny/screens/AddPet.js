@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
 import {Button} from '../components/Button';
 import {AppImagePicker} from '../components/AppImagePicker';
@@ -9,6 +9,7 @@ import {Colors} from '../constants/colors';
 import ImagePicker from 'react-native-image-crop-picker';
 import firestore from '@react-native-firebase/firestore';
 import uuid from 'react-native-uuid';
+import storage from '@react-native-firebase/storage';
 
 export const AddPet = () => {
   const [form, setForm] = useState({
@@ -27,23 +28,8 @@ export const AddPet = () => {
     });
   };
 
-  const onPressHandler = () => {
-    firestore()
-      .collection('pets')
-      .doc(petId)
-      .set(form)
-      .then(() => {
-        console.log('Data added!');
-      });
-    console.log(form);
-    setForm({
-      name: '',
-      breed: '',
-      dateOfBirth: '',
-      description: '',
-    });
-  };
-  const [pickedImage, setPickedImage] = useState();
+  const [pickedImageUri, setPickedImageUri] = useState();
+  const [pickedImageName, setPickedImageName] = useState('');
 
   const getImage = () => {
     ImagePicker.openPicker({
@@ -51,20 +37,27 @@ export const AddPet = () => {
       height: 150,
       cropping: true,
     }).then(image => {
-      setPickedImage(image.path);
-      console.log(image.path);
+      setPickedImageUri(image.path);
+      setPickedImageName(image.path.substring(image.path.lastIndexOf('/') + 1));
     });
   };
 
-  // const getImage = async () => {
-  //   const image = await launchImageLibrary({
-  //     mediaType: 'photo',
-  //     maxWidth: 1000,
-  //     maxHeight: 1000,
-  //   });
-  //   setPickedImage(image.assets[0].uri);
-  //   console.log(image.assets[0].uri);
-  // };
+  const uploadPhoto = async () => {
+    const reference = storage().ref(`${petId}/${pickedImageName}`);
+    const pathToFile = `${pickedImageUri}`;
+    await reference.putFile(pathToFile);
+  };
+
+  const onPressHandler = () => {
+    firestore().collection('pets').doc(petId).set(form);
+    uploadPhoto();
+    setForm({
+      name: '',
+      breed: '',
+      dateOfBirth: '',
+      description: '',
+    });
+  };
 
   return (
     <View style={styles.mainContainer}>
@@ -73,7 +66,7 @@ export const AddPet = () => {
         <Title>Add a pet!</Title>
       </View>
       <View style={styles.form}>
-        <AppImagePicker getImage={getImage} pickedImage={pickedImage} />
+        <AppImagePicker getImage={getImage} pickedImage={pickedImageUri} />
         <TextInput
           style={styles.inputs}
           placeholder="Name"
@@ -108,6 +101,7 @@ export const AddPet = () => {
           onChangeText={text => onChangeHandler('description', text)}
           autoCapitalize="sentences"
           maxLength={140}
+          multiline={true}
         />
       </View>
       <View style={styles.buttonContainer}>
