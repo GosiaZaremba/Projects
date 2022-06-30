@@ -5,6 +5,7 @@ import {Colors} from '../constants/colors';
 import {Button} from '../components/Button';
 import {useState} from 'react';
 import {Title} from '../components/Title';
+import auth from '@react-native-firebase/auth';
 
 export const Login = () => {
   const [emailAddress, setEmailAdress] = useState('');

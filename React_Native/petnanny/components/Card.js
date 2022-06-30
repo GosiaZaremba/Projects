@@ -13,6 +13,6 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     elevation: 7,
     backgroundColor: Colors.accent.medium,
-    padding: 10,
+    // padding: 10,
   },
 });

@@ -5,6 +5,7 @@ import {Colors} from '../constants/colors';
 import {Button} from '../components/Button';
 import {useState} from 'react';
 import {Title} from '../components/Title';
+import auth from '@react-native-firebase/auth';
 
 export const Register = () => {
   const [emailAddress, setEmailAdress] = useState('');
@@ -25,7 +26,22 @@ export const Register = () => {
       password.match(/[^a-zA-Z\d]/g) &&
       password.length >= 8
     ) {
-      console.log('click', emailAddress, password);
+      auth()
+        .createUserWithEmailAndPassword(emailAddress, password)
+        .then(() => {
+          console.log('User account created & signed in!');
+        })
+        .catch(error => {
+          if (error.code === 'auth/email-already-in-use') {
+            console.log('That email address is already in use!');
+          }
+
+          if (error.code === 'auth/invalid-email') {
+            console.log('That email address is invalid!');
+          }
+
+          console.error(error);
+        });
       setEmailAdress('');
       setPassword('');
     } else {
