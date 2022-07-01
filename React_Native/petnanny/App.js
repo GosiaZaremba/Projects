@@ -26,6 +26,8 @@ import {Register} from './screens/Register';
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from './constants/colors';
 import auth from '@react-native-firebase/auth';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 const App = () => {
   const [initializing, setInitializing] = useState(true);
@@ -41,21 +43,39 @@ const App = () => {
     return subscriber; // unsubscribe on unmount
   }, []);
 
+  const Stack = createNativeStackNavigator();
+
+  const Screen = () => {};
+
   return (
-    <LinearGradient
-      colors={[Colors.primary.medium, Colors.accent.dark]}
-      style={styles.rootContainer}>
-      <ImageBackground
-        source={require('./assets/bckg.png')}
-        resizeMode="cover"
-        style={styles.rootContainer}
-        imageStyle={styles.backgroundImge}>
-        <SafeAreaView style={styles.rootContainer}>
-          <StatusBar></StatusBar>
-          {!user ? <Register /> : <Dashboard />}
-        </SafeAreaView>
-      </ImageBackground>
-    </LinearGradient>
+    <NavigationContainer>
+      <LinearGradient
+        colors={[Colors.primary.medium, Colors.accent.dark]}
+        style={styles.rootContainer}>
+        <ImageBackground
+          source={require('./assets/bckg.png')}
+          resizeMode="cover"
+          style={styles.rootContainer}
+          imageStyle={styles.backgroundImge}>
+          <SafeAreaView style={styles.rootContainer}>
+            <StatusBar></StatusBar>
+            <Stack.Navigator initialRouteName="Home">
+              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="Register" component={Register} />
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Dashboard" component={Dashboard} />
+              <Stack.Screen name="PetPanel" component={PetPanel} />
+              <Stack.Screen name="AddPet" component={AddPet} />
+              <Stack.Screen
+                name="RecoverPassword"
+                component={RecoverPassword}
+              />
+            </Stack.Navigator>
+            {/* {!user ? <Register /> : <Dashboard user={user} />} */}
+          </SafeAreaView>
+        </ImageBackground>
+      </LinearGradient>
+    </NavigationContainer>
   );
 };
 

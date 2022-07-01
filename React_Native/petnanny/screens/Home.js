@@ -2,8 +2,19 @@ import React from 'react';
 import {Image, View, StyleSheet} from 'react-native';
 import {Button} from '../components/Button';
 import {Logo} from '../components/Logo';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-export const Home = () => {
+export const Home = ({navigation}) => {
+  const onPressLogin = () => {
+    navigation.navigate('Login');
+  };
+  const onPressRegister = () => {
+    navigation.navigate('Register');
+  };
+  const onRecoverPassword = () => {
+    navigation.navigate('RecoverPassword');
+  };
   return (
     <View style={styles.outerContainer}>
       <View>
@@ -11,9 +22,9 @@ export const Home = () => {
       </View>
 
       <View style={styles.innerContainer}>
-        <Button>Login</Button>
-        <Button>Register</Button>
-        <Button>Reset password</Button>
+        <Button onPress={onPressLogin}>Login</Button>
+        <Button onPress={onPressRegister}>Register</Button>
+        <Button onPress={onRecoverPassword}>Reset password</Button>
       </View>
     </View>
   );
