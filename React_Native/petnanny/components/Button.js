@@ -30,13 +30,12 @@ const styles = StyleSheet.create({
   },
   buttonInnerContainer: {
     backgroundColor: Colors.primary.medium,
-
-    paddingVertical: 16,
-    paddingHorizontal: 16,
+    padding: 12,
   },
   buttonText: {
     textAlign: 'center',
     color: Colors.secondary.light,
+    fontSize: 20,
   },
   pressed: {
     opacity: 0.75,

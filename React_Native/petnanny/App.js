@@ -26,29 +26,38 @@ import {Register} from './screens/Register';
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from './constants/colors';
 import auth from '@react-native-firebase/auth';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 const App = () => {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
+  const [userMessage, setUserMessage] = useState('');
 
   function onAuthStateChanged(user) {
     setUser(user);
     if (initializing) setInitializing(false);
+    setUserMessage(user ? user.email : 'Stranger');
   }
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+
     return subscriber; // unsubscribe on unmount
   }, []);
 
   const Stack = createNativeStackNavigator();
 
-  const Screen = () => {};
+  const navTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: 'transparent',
+    },
+  };
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={navTheme}>
       <LinearGradient
         colors={[Colors.primary.medium, Colors.accent.dark]}
         style={styles.rootContainer}>
@@ -59,16 +68,50 @@ const App = () => {
           imageStyle={styles.backgroundImge}>
           <SafeAreaView style={styles.rootContainer}>
             <StatusBar></StatusBar>
-            <Stack.Navigator initialRouteName="Home">
-              <Stack.Screen name="Home" component={Home} />
-              <Stack.Screen name="Register" component={Register} />
-              <Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="Dashboard" component={Dashboard} />
-              <Stack.Screen name="PetPanel" component={PetPanel} />
-              <Stack.Screen name="AddPet" component={AddPet} />
+            <Stack.Navigator
+              initialRouteName="Home"
+              screenOptions={{
+                headerStyle: {backgroundColor: 'transparent'},
+                headerTintColor: Colors.secondary.light,
+                headerTitleStyle: {
+                  fontWeight: 'bold',
+                },
+                headerShadowVisible: false,
+              }}>
+              <Stack.Screen
+                name="Home"
+                component={Home}
+                options={{title: `Welcome, ${userMessage}!`}}
+              />
+              <Stack.Screen
+                name="Register"
+                component={Register}
+                options={{title: `${userMessage} `}}
+              />
+              <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{title: `${userMessage}`}}
+              />
+              <Stack.Screen
+                name="Dashboard"
+                component={Dashboard}
+                options={{title: `${userMessage}`}}
+              />
+              <Stack.Screen
+                name="PetPanel"
+                component={PetPanel}
+                options={{title: `${userMessage}`}}
+              />
+              <Stack.Screen
+                name="AddPet"
+                component={AddPet}
+                options={{title: `${userMessage}`}}
+              />
               <Stack.Screen
                 name="RecoverPassword"
                 component={RecoverPassword}
+                options={{title: `${userMessage}`}}
               />
             </Stack.Navigator>
             {/* {!user ? <Register /> : <Dashboard user={user} />} */}

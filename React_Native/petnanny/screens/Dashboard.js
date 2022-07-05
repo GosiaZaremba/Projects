@@ -7,7 +7,7 @@ import {PetList} from '../components/PetList';
 import database from '@react-native-firebase/database';
 import {AddPetButton} from '../components/AddPetButton';
 
-export const Dashboard = ({user}) => {
+export const Dashboard = ({user, navigation}) => {
   const data = [
     {name: 'Goya', photo: require('../assets/7.jpg')},
     {name: 'Buddy', photo: require('../assets/8.jpg')},
@@ -15,7 +15,9 @@ export const Dashboard = ({user}) => {
     {name: 'Buddy', photo: require('../assets/8.jpg')},
   ];
 
-  onPressAddAPet = () => {};
+  onPressAddAPet = () => {
+    navigation.navigate('AddPet');
+  };
   // const getData = () => {
   //   database()
   //     .ref(`/pets/`)
@@ -31,7 +33,7 @@ export const Dashboard = ({user}) => {
         <Logo />
         <View style={styles.titleContainer}>
           <Title>Your Pets:</Title>
-          <AddPetButton>Add a Pet!</AddPetButton>
+          <AddPetButton onPress={onPressAddAPet}>Add a Pet!</AddPetButton>
         </View>
       </View>
 
