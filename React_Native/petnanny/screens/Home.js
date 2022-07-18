@@ -25,7 +25,6 @@ export const Home = ({navigation}) => {
     <View style={styles.outerContainer}>
       <View>
         <Logo />
-        <Title>Welcome!</Title>
         <Title>Please, choose Your next action:</Title>
       </View>
 
