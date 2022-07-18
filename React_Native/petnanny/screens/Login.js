@@ -7,9 +7,10 @@ import {useState} from 'react';
 import {Title} from '../components/Title';
 import auth from '@react-native-firebase/auth';
 
-export const Login = () => {
+export const Login = ({navigation}) => {
   const [emailAddress, setEmailAdress] = useState('');
   const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('');
 
   const emailHandler = enteredText => {
     setEmailAdress(enteredText);
@@ -19,9 +20,25 @@ export const Login = () => {
   };
 
   const onPressHandler = () => {
-    console.log('click', emailAddress, password);
+    auth()
+      .signInWithEmailAndPassword(emailAddress, password)
+      .then(() => {
+        console.log('User signed in!');
+      })
+      .catch(error => {
+        if (error.code === 'auth/invalid-password') {
+          console.log('That email address is already in use!');
+        }
+
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+
+        console.error(error);
+      });
     setEmailAdress('');
     setPassword('');
+    navigation.navigate('Dashboard');
   };
 
   return (
@@ -74,7 +91,7 @@ const styles = StyleSheet.create({
   inputs: {
     backgroundColor: Colors.secondary.light,
     marginTop: 10,
-    padding: 8,
+    padding: 11,
     borderRadius: 25,
   },
   buttonContainer: {

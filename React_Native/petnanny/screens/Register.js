@@ -7,7 +7,7 @@ import {useState} from 'react';
 import {Title} from '../components/Title';
 import auth from '@react-native-firebase/auth';
 
-export const Register = () => {
+export const Register = ({navigation}) => {
   const [emailAddress, setEmailAdress] = useState('');
   const [password, setPassword] = useState('');
 
@@ -44,6 +44,7 @@ export const Register = () => {
         });
       setEmailAdress('');
       setPassword('');
+      navigation.navigate('Dashboard');
     } else {
       Alert.alert(
         'Invalid password!',
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
   inputs: {
     backgroundColor: Colors.secondary.light,
     marginTop: 10,
-    padding: 8,
+    padding: 11,
     borderRadius: 25,
   },
   buttonContainer: {

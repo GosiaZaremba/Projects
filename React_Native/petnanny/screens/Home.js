@@ -1,9 +1,9 @@
 import React from 'react';
-import {Image, View, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {Button} from '../components/Button';
 import {Logo} from '../components/Logo';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Title} from '../components/Title';
+import auth from '@react-native-firebase/auth';
 
 export const Home = ({navigation}) => {
   const onPressLogin = () => {
@@ -15,16 +15,24 @@ export const Home = ({navigation}) => {
   const onRecoverPassword = () => {
     navigation.navigate('RecoverPassword');
   };
+
+  const onSignOut = () => {
+    auth()
+      .signOut()
+      .then(() => console.log('User signed out!'));
+  };
   return (
     <View style={styles.outerContainer}>
       <View>
         <Logo />
+        <Title>Please, choose Your next action:</Title>
       </View>
 
       <View style={styles.innerContainer}>
         <Button onPress={onPressLogin}>Login</Button>
         <Button onPress={onPressRegister}>Register</Button>
         <Button onPress={onRecoverPassword}>Reset password</Button>
+        <Button onPress={onSignOut}>Singn out</Button>
       </View>
     </View>
   );

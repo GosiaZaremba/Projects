@@ -10,8 +10,11 @@ import ImagePicker from 'react-native-image-crop-picker';
 import firestore from '@react-native-firebase/firestore';
 import uuid from 'react-native-uuid';
 import storage from '@react-native-firebase/storage';
+import auth from '@react-native-firebase/auth';
 
 export const AddPet = () => {
+  const user = auth().currentUser;
+
   const [form, setForm] = useState({
     name: '',
     breed: '',
@@ -20,6 +23,7 @@ export const AddPet = () => {
   });
 
   const petId = uuid.v4();
+  const userId = user.uid;
 
   const onChangeHandler = (name, value) => {
     setForm({
@@ -43,13 +47,13 @@ export const AddPet = () => {
   };
 
   const uploadPhoto = async () => {
-    const reference = storage().ref(`${petId}/${pickedImageName}`);
+    const reference = storage().ref(`${userId}/${petId}/${pickedImageName}`);
     const pathToFile = `${pickedImageUri}`;
     await reference.putFile(pathToFile);
   };
 
   const onPressHandler = () => {
-    firestore().collection('pets').doc(petId).set(form);
+    firestore().collection(userId).doc(petId).set(form);
     uploadPhoto();
     setForm({
       name: '',

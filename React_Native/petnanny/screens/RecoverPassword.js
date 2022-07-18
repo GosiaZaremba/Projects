@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   inputs: {
     backgroundColor: Colors.secondary.light,
     marginTop: 10,
-    padding: 8,
+    padding: 11,
     borderRadius: 25,
   },
   buttonContainer: {
