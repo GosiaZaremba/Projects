@@ -33,7 +33,6 @@ export const AddPet = () => {
   };
 
   const [pickedImageUri, setPickedImageUri] = useState();
-  const [pickedImageName, setPickedImageName] = useState('');
 
   const getImage = () => {
     ImagePicker.openPicker({
@@ -42,14 +41,20 @@ export const AddPet = () => {
       cropping: true,
     }).then(image => {
       setPickedImageUri(image.path);
-      setPickedImageName(image.path.substring(image.path.lastIndexOf('/') + 1));
     });
   };
 
   const uploadPhoto = async () => {
-    const reference = storage().ref(`${userId}/${petId}/${pickedImageName}`);
+    const reference = storage().ref(`${userId}/${petId}`);
     const pathToFile = `${pickedImageUri}`;
-    await reference.putFile(pathToFile);
+    await reference.putFile(pathToFile).catch(error => {
+      throw error;
+    });
+    const url = await reference.getDownloadURL().catch(error => {
+      throw error;
+    });
+    console.log(url);
+    return url;
   };
 
   const onPressHandler = () => {
