@@ -11,42 +11,49 @@ import storage from '@react-native-firebase/storage';
 
 export const Dashboard = ({navigation}) => {
   const [pets, setPets] = useState([]);
-  const [photoPath, setPhotoPath] = useState([]);
-  const [photoUrls, setPhotoUrls] = useState({uri: ''});
+  const [photoUris, setPhotoUris] = useState({uri: null});
   const userId = auth().currentUser.uid;
 
-  useEffect(() => {
-    const petData = firestore()
+  const petData = () => {
+    firestore()
       .collection(`${userId}`)
       .onSnapshot(querySnapshot => {
-        // console.log(querySnapshot);
         const petData = querySnapshot._docs.map(item => ({
           id: item._ref.id,
           data: item._data,
         }));
         setPets(petData);
-        getUrl();
         console.log(pets);
       });
 
     // Stop listening for updates when no longer required
     return () => petData();
-  }, []);
-
-  const getUrl = async () => {
-    const url = await storage()
-      .ref(`${userId}/${pets[0].id}/petAvatar`)
-      .getDownloadURL();
-    setPhotoUrls({uri: url});
-    console.log(photoUrls);
   };
+
+  useEffect(() => {
+    petData();
+  }, [userId]);
+
+  const getPhotos = async () => {
+    const imageRefs = await storage().ref(`${userId}`).listAll();
+    const urls = await Promise.all(
+      imageRefs.items.map(ref => ref.getDownloadURL()),
+    );
+    const uris = urls.map(url => ({
+      uri: url,
+    }));
+    setPhotoUris(uris);
+    console.log(photoUris);
+  };
+
+  useEffect(() => {
+    getPhotos();
+  }, [pets]);
 
   onPressAddAPet = () => {
     navigation.navigate('AddPet');
   };
-  // useEffect(() => {
-  //
-  // }, []);
+
   return (
     <View style={styles.outerContainer}>
       <View>
@@ -56,22 +63,16 @@ export const Dashboard = ({navigation}) => {
           <AddPetButton onPress={onPressAddAPet}>Add a Pet!</AddPetButton>
         </View>
       </View>
-      {/* 
-      {data.map(item => (
-        <PetList
-          key={item.name}
-          name={item.name}
-          photoUrl={item.photo}></PetList>
-      ))} */}
-
       <FlatList
         style={styles.listContainer}
         data={pets}
-        renderItem={itemData => (
+        renderItem={({item, index}) => (
           <PetList
-            name={itemData.item.data.name}
+            name={item.data.name}
             keyExtractor={item => item}
-            photoUrl={photoUrls}></PetList>
+            photoUrls={photoUris}
+            index={index}
+          />
         )}
       />
     </View>
@@ -95,27 +96,3 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
 });
-
-// setPets([
-//   {
-//     id: petList._docs[0]._ref.id,
-//     name: petList._docs[0]._data.name,
-//     breed: petList._docs[0]._data.breed,
-//     dateOfBirth: petList._docs[0]._data.dateOfBirth,
-//     description: petList._docs[0]._data.description,
-//   },
-// ]);
-
-// const getUrl = async () => {
-// const paths = pets.map(item => item.data.petPhotoPath);
-// setPhotoPath([paths]);
-
-// const urls = await storage().ref(photoPath[0]).getDownloadURL();
-// setPhotoUrls(urls);
-// const storageResult = await storage().ref(`${userId}`).listAll();
-// const urls = await storageResult._prefixes.map(storageReference =>
-//   storageReference._path.getDownloadURL(),
-// );
-
-// setPhotoUrls(urls);
-// };

@@ -4,7 +4,7 @@ import {Colors} from '../constants/colors';
 import {Card} from './Card';
 import {PetPhoto} from './PetPhoto';
 
-export const PetList = ({onPress, name, photoUrl}) => {
+export const PetList = ({onPress, name, photoUrls, index}) => {
   return (
     <Card>
       <Pressable
@@ -16,8 +16,7 @@ export const PetList = ({onPress, name, photoUrl}) => {
         android_ripple={{color: Colors.accent.light}}
         onPress={onPress}>
         <View style={styles.dataContainer}>
-          <PetPhoto photoUrl={photoUrl} />
-
+          <PetPhoto photoUrl={photoUrls[index]} />
           <Text style={styles.text}>{name}</Text>
         </View>
       </Pressable>

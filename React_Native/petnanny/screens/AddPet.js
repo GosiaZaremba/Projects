@@ -45,7 +45,7 @@ export const AddPet = () => {
   };
 
   const uploadPhoto = async () => {
-    const reference = storage().ref(`${userId}/${petId}/petAvatar`);
+    const reference = storage().ref(`${userId}/${petId}`);
     const pathToFile = `${pickedImageUri}`;
     await reference.putFile(pathToFile).catch(error => {
       throw error;
