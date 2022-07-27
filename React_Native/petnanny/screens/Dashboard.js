@@ -4,39 +4,59 @@ import {FlatList, StyleSheet, View} from 'react-native';
 import {Logo} from '../components/Logo';
 import {Title} from '../components/Title';
 import {PetList} from '../components/PetList';
-import database from '@react-native-firebase/database';
 import {AddPetButton} from '../components/AddPetButton';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 
 export const Dashboard = ({navigation}) => {
   const [pets, setPets] = useState([]);
-  const user = auth().currentUser;
-  const userId = user.uid;
-
-  const data = [
-    {name: 'Goya', photo: require('../assets/7.jpg')},
-    {name: 'Buddy', photo: require('../assets/8.jpg')},
-    {name: 'Buddy', photo: require('../assets/8.jpg')},
-    {name: 'Buddy', photo: require('../assets/8.jpg')},
-  ];
-
-  const getPets = async () => {
-    const petList = await firestore().collection(`${userId}`).get();
-    const getPetData = petList._docs.map(item => ({
-      id: item._ref.id,
-      data: item._data,
-    }));
-
-    setPets(getPetData);
-  };
+  const [photoPath, setPhotoPath] = useState([]);
+  const [photoUrls, setPhotoUrls] = useState(null);
+  const userId = auth().currentUser.uid;
 
   useEffect(() => {
-    getPets();
+    const petData = firestore()
+      .collection(`${userId}`)
+      .onSnapshot(querySnapshot => {
+        console.log(querySnapshot);
+        const petData = querySnapshot._docs.map(item => ({
+          id: item._ref.id,
+          data: item._data,
+        }));
+        setPets(petData);
+      });
+
+    // Stop listening for updates when no longer required
+    return () => petData();
   }, []);
+
+  // const getPets = async () => {
+  //   const petList = await firestore().collection(`${userId}`).get();
+  //   const getPetData = petList._docs.map(item => ({
+  //     id: item._ref.id,
+  //     data: item._data,
+  //   }));
+
+  //   setPets(getPetData);
+  //   console.log(pets);
+  // };
+
+  // const getUrl = async () => {
+  //   const url = await storage()
+  //     .ref(`${userId}/${pets[0].id}/petAvatar`)
+  //     .getDownloadURL();
+  //   setPhotoUrls(url);
+  //   console.log(photoUrls);
+  // };
+
+  // useEffect(() => {
+  //   getPets();
+  //   getUrl();
+  // }, []);
+
   onPressAddAPet = () => {
     navigation.navigate('AddPet');
-    console.log(pets);
   };
 
   return (
@@ -62,7 +82,6 @@ export const Dashboard = ({navigation}) => {
         renderItem={itemData => (
           <PetList
             name={itemData.item.data.name}
-            photoUrl={itemData.item.photo}
             keyExtractor={item => item}></PetList>
         )}
       />
@@ -97,3 +116,17 @@ const styles = StyleSheet.create({
 //     description: petList._docs[0]._data.description,
 //   },
 // ]);
+
+// const getUrl = async () => {
+// const paths = pets.map(item => item.data.petPhotoPath);
+// setPhotoPath([paths]);
+
+// const urls = await storage().ref(photoPath[0]).getDownloadURL();
+// setPhotoUrls(urls);
+// const storageResult = await storage().ref(`${userId}`).listAll();
+// const urls = await storageResult._prefixes.map(storageReference =>
+//   storageReference._path.getDownloadURL(),
+// );
+
+// setPhotoUrls(urls);
+// };
