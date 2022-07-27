@@ -12,53 +12,41 @@ import storage from '@react-native-firebase/storage';
 export const Dashboard = ({navigation}) => {
   const [pets, setPets] = useState([]);
   const [photoPath, setPhotoPath] = useState([]);
-  const [photoUrls, setPhotoUrls] = useState(null);
+  const [photoUrls, setPhotoUrls] = useState({uri: ''});
   const userId = auth().currentUser.uid;
 
   useEffect(() => {
     const petData = firestore()
       .collection(`${userId}`)
       .onSnapshot(querySnapshot => {
-        console.log(querySnapshot);
+        // console.log(querySnapshot);
         const petData = querySnapshot._docs.map(item => ({
           id: item._ref.id,
           data: item._data,
         }));
         setPets(petData);
+        getUrl();
+        console.log(pets);
       });
 
     // Stop listening for updates when no longer required
     return () => petData();
   }, []);
 
-  // const getPets = async () => {
-  //   const petList = await firestore().collection(`${userId}`).get();
-  //   const getPetData = petList._docs.map(item => ({
-  //     id: item._ref.id,
-  //     data: item._data,
-  //   }));
-
-  //   setPets(getPetData);
-  //   console.log(pets);
-  // };
-
-  // const getUrl = async () => {
-  //   const url = await storage()
-  //     .ref(`${userId}/${pets[0].id}/petAvatar`)
-  //     .getDownloadURL();
-  //   setPhotoUrls(url);
-  //   console.log(photoUrls);
-  // };
-
-  // useEffect(() => {
-  //   getPets();
-  //   getUrl();
-  // }, []);
+  const getUrl = async () => {
+    const url = await storage()
+      .ref(`${userId}/${pets[0].id}/petAvatar`)
+      .getDownloadURL();
+    setPhotoUrls({uri: url});
+    console.log(photoUrls);
+  };
 
   onPressAddAPet = () => {
     navigation.navigate('AddPet');
   };
-
+  // useEffect(() => {
+  //
+  // }, []);
   return (
     <View style={styles.outerContainer}>
       <View>
@@ -82,7 +70,8 @@ export const Dashboard = ({navigation}) => {
         renderItem={itemData => (
           <PetList
             name={itemData.item.data.name}
-            keyExtractor={item => item}></PetList>
+            keyExtractor={item => item}
+            photoUrl={photoUrls}></PetList>
         )}
       />
     </View>
