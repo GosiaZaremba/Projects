@@ -3,19 +3,16 @@ import {Text, View, StyleSheet} from 'react-native';
 import {Colors} from '../constants/colors';
 import {PetPhoto} from './PetPhoto';
 
-export const PetInfo = () => {
+export const PetInfo = ({pet, photoUris, index}) => {
+  const petInfo = pet;
   return (
     <View style={styles.petContainer}>
-      <PetPhoto photoUrl={require('../assets/7.jpg')} />
+      <PetPhoto photoUrl={photoUris[index]} />
       <View style={styles.petData}>
-        <Text style={styles.petName}>Goya</Text>
-        <Text style={styles.petOtherInfo}>French Bulldog</Text>
-        <Text style={styles.petOtherInfo}>29.11.2010</Text>
-        <Text style={styles.petOtherInfo}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-          mollis ac nisi vitae feugiat. Ut non erat vestibulum, dictum nulla ac,
-          acc.
-        </Text>
+        <Text style={styles.petName}>{petInfo.name}</Text>
+        <Text style={styles.petOtherInfo}>{petInfo.breed}</Text>
+        <Text style={styles.petOtherInfo}>{petInfo.dateOfBirth}</Text>
+        <Text style={styles.petOtherInfo}>{petInfo.description}</Text>
       </View>
     </View>
   );
