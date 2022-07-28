@@ -43,17 +43,15 @@ export const Dashboard = ({navigation}) => {
       uri: url,
     }));
     setPhotoUris(uris);
-    console.log(photoUris);
   };
 
   useEffect(() => {
     getPhotos();
   }, [pets]);
 
-  onPressAddAPet = () => {
+  const onPressAddAPet = () => {
     navigation.navigate('AddPet');
   };
-
   return (
     <View style={styles.outerContainer}>
       <View>
@@ -68,6 +66,15 @@ export const Dashboard = ({navigation}) => {
         data={pets}
         renderItem={({item, index}) => (
           <PetList
+            onPress={() => {
+              navigation.navigate('PetPanel', {
+                itemId: item.id,
+                photoUris: photoUris,
+                index: index,
+                pets: pets,
+              });
+            }}
+            id={item.id}
             name={item.data.name}
             keyExtractor={item => item}
             photoUrls={photoUris}

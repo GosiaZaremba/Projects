@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Logo} from '../components/Logo';
 import {Card} from '../components/Card';
@@ -7,12 +7,47 @@ import {Colors} from '../constants/colors';
 import {useState} from 'react';
 import moment from 'moment';
 import {PetInfo} from '../components/PetInfo';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
-export const PetPanel = () => {
+export const PetPanel = ({route, navigation}) => {
   const [walksHistory, setWalksHistory] = useState([]);
   const [feedingHistory, setFeedingHistory] = useState([]);
   const [pillsHistory, setPillsHistory] = useState([]);
   const [playHistory, setPlaysHistory] = useState([]);
+  const [singlePet, setSinglePet] = useState([]);
+  const userId = auth().currentUser.uid;
+  const {itemId, photoUris, index, pets} = route.params;
+  console.log(singlePet);
+
+  const getPetData = () => {
+    firestore()
+      .collection(`${userId}`)
+      .doc(`${itemId}`)
+      .onSnapshot(documentSnapshot => {
+        const petData = documentSnapshot._data;
+        setSinglePet(petData);
+        console.log(petData);
+        console.log(singlePet);
+      });
+
+    // Stop listening for updates when no longer required
+    // return () => getPetData();
+  };
+
+  useEffect(() => {
+    getPetData();
+  }, [itemId]);
+
+  const updatePet = updatedField => {
+    firestore()
+      .collection(`${userId}`)
+      .doc(`${itemId}`)
+      .update(updatedField)
+      .then(() => {
+        console.log('singlePet data updated!');
+      });
+  };
 
   const onPressFood = () => {
     let date = new Date();
@@ -21,7 +56,7 @@ export const PetPanel = () => {
     newFoods.unshift(newFeed);
     if (newFoods.length > 3) newFoods.pop();
     setFeedingHistory([...newFoods]);
-    console.log(newFoods);
+    updatePet({feedingHistory});
   };
 
   const onPressWalk = () => {
@@ -31,8 +66,7 @@ export const PetPanel = () => {
     newWalks.unshift(newWalk);
     if (newWalks.length > 3) newWalks.pop();
     setWalksHistory([...newWalks]);
-
-    console.log('walks', walksHistory);
+    updatePet({walksHistory});
   };
 
   const onPressPills = () => {
@@ -42,7 +76,7 @@ export const PetPanel = () => {
     newPills.unshift(newPill);
     if (newPills.length > 3) newPills.pop();
     setPillsHistory([...newPills]);
-    console.log('pills', pillsHistory);
+    updatePet({pillsHistory});
   };
   const onPressPlays = () => {
     let date = new Date();
@@ -51,13 +85,13 @@ export const PetPanel = () => {
     newPlays.unshift(newPlay);
     if (newPlays.length > 3) newPlays.pop();
     setPlaysHistory([...newPlays]);
-    console.log('plays', playHistory);
+    updatePet({playHistory});
   };
   return (
     <View style={styles.outerContainer}>
       <Logo />
       <Card>
-        <PetInfo />
+        <PetInfo pet={singlePet} photoUris={photoUris} index={index} />
 
         <View style={styles.innerContainer}>
           <PanelButton
@@ -140,3 +174,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+
+// const petData = documentSnapshot._docs.map(item => ({
+//   id: item._ref.id,
+//   data: item._data,
+// }));
+// setPets(petData);
