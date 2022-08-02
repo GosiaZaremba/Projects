@@ -15,10 +15,18 @@ export const PetPanel = ({route, navigation}) => {
   const [feedingHistory, setFeedingHistory] = useState([]);
   const [pillsHistory, setPillsHistory] = useState([]);
   const [playHistory, setPlaysHistory] = useState([]);
-  const [singlePet, setSinglePet] = useState([]);
+  const [singlePet, setSinglePet] = useState({
+    feedingHistory: [],
+    playHistory: [],
+    walksHistory: [],
+    pillsHistory: [],
+    name: '',
+    breed: '',
+    description: '',
+    dateOfBirth: '',
+  });
   const userId = auth().currentUser.uid;
   const {itemId, photoUris, index, pets} = route.params;
-  console.log(singlePet);
 
   const getPetData = () => {
     firestore()
@@ -27,8 +35,6 @@ export const PetPanel = ({route, navigation}) => {
       .onSnapshot(documentSnapshot => {
         const petData = documentSnapshot._data;
         setSinglePet(petData);
-        console.log(petData);
-        console.log(singlePet);
       });
 
     // Stop listening for updates when no longer required
@@ -37,17 +43,30 @@ export const PetPanel = ({route, navigation}) => {
 
   useEffect(() => {
     getPetData();
+  }, []);
+
+  // const getPetInfo = () => {
+  //   const singlePetInfo = pets[index];
+  //   setSinglePet(singlePetInfo);
+  // };
+
+  useEffect(() => {
+    getPetData();
   }, [itemId]);
 
   const updatePet = updatedField => {
-    firestore()
-      .collection(`${userId}`)
-      .doc(`${itemId}`)
-      .update(updatedField)
-      .then(() => {
-        console.log('singlePet data updated!');
-      });
+    firestore().collection(`${userId}`).doc(`${itemId}`).update(updatedField);
   };
+
+  // onPressAction = (stateUpdateFn, updatedArray) =>{
+  //   let date = new Date();
+  //   const newAction = moment(date).format('dddd, HH:mm');
+  //   const newActions = [...updatedArray];
+  //   newActions.unshift(newAction);
+  //   if (newActions.length > 3) newActions.pop();
+  //   stateUpdateFn([...newActions]);
+  //   updatePet({updatedArray});
+  // }
 
   const onPressFood = () => {
     let date = new Date();
@@ -87,6 +106,7 @@ export const PetPanel = ({route, navigation}) => {
     setPlaysHistory([...newPlays]);
     updatePet({playHistory});
   };
+  console.log(singlePet);
   return (
     <View style={styles.outerContainer}>
       <Logo />
@@ -99,7 +119,7 @@ export const PetPanel = ({route, navigation}) => {
             onPress={onPressFood}
           />
           <View style={styles.dataView}>
-            {feedingHistory.map((food, index) => (
+            {singlePet.feedingHistory.map((food, index) => (
               <Text key={index} style={styles.dataText}>
                 {food}
               </Text>
@@ -112,7 +132,7 @@ export const PetPanel = ({route, navigation}) => {
             onPress={onPressWalk}
           />
           <View style={styles.dataView}>
-            {walksHistory.map((walk, index) => (
+            {singlePet.walksHistory.map((walk, index) => (
               <Text key={index} style={styles.dataText}>
                 {walk}
               </Text>
@@ -125,7 +145,7 @@ export const PetPanel = ({route, navigation}) => {
             onPress={onPressPills}
           />
           <View style={styles.dataView}>
-            {pillsHistory.map((pill, index) => (
+            {singlePet.pillsHistory.map((pill, index) => (
               <Text key={index} style={styles.dataText}>
                 {pill}
               </Text>
@@ -138,7 +158,7 @@ export const PetPanel = ({route, navigation}) => {
             onPress={onPressPlays}
           />
           <View style={styles.dataView}>
-            {playHistory.map((play, index) => (
+            {singlePet.playHistory.map((play, index) => (
               <Text key={index} style={styles.dataText}>
                 {play}
               </Text>
