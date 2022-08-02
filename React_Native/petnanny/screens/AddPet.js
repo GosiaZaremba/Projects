@@ -20,6 +20,10 @@ export const AddPet = () => {
     breed: '',
     dateOfBirth: '',
     description: '',
+    feedingHistory: [''],
+    playHistory: [''],
+    walksHistory: [''],
+    pillsHistory: [''],
   });
 
   const petId = uuid.v4();

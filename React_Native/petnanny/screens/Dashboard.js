@@ -14,25 +14,19 @@ export const Dashboard = ({navigation}) => {
   const [photoUris, setPhotoUris] = useState({uri: null});
   const userId = auth().currentUser.uid;
 
-  const petData = () => {
-    firestore()
-      .collection(`${userId}`)
-      .onSnapshot(querySnapshot => {
-        const petData = querySnapshot._docs.map(item => ({
-          id: item._ref.id,
-          data: item._data,
-        }));
-        setPets(petData);
-        console.log(pets);
-      });
+  const petData = async () => {
+    const petList = await firestore().collection(`${userId}`).get();
+    const getPetData = petList._docs.map(item => ({
+      id: item._ref.id,
+      data: item._data,
+    }));
 
-    // Stop listening for updates when no longer required
-    return () => petData();
+    setPets(getPetData);
   };
 
   useEffect(() => {
     petData();
-  }, [userId]);
+  }, []);
 
   const getPhotos = async () => {
     const imageRefs = await storage().ref(`${userId}`).listAll();
@@ -52,6 +46,7 @@ export const Dashboard = ({navigation}) => {
   const onPressAddAPet = () => {
     navigation.navigate('AddPet');
   };
+  console.log(pets);
   return (
     <View style={styles.outerContainer}>
       <View>
@@ -67,12 +62,15 @@ export const Dashboard = ({navigation}) => {
         renderItem={({item, index}) => (
           <PetList
             onPress={() => {
-              navigation.navigate('PetPanel', {
-                itemId: item.id,
-                photoUris: photoUris,
-                index: index,
-                pets: pets,
-              });
+              navigation.navigate(
+                'PetPanel',
+                {
+                  itemId: item.id,
+                  photoUris: photoUris,
+                  index: index,
+                },
+                petData(),
+              );
             }}
             id={item.id}
             name={item.data.name}
