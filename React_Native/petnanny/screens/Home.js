@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Button} from '../components/Button';
 import {Logo} from '../components/Logo';
 import {Title} from '../components/Title';
 import auth from '@react-native-firebase/auth';
+import {Dashboard} from './Dashboard';
 
 export const Home = ({navigation}) => {
   const onPressLogin = () => {
