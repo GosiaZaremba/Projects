@@ -8,11 +8,16 @@ import {AddPetButton} from '../components/AddPetButton';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
+import {Header} from '../components/Header';
 
 export const Dashboard = ({navigation}) => {
   const [pets, setPets] = useState([]);
   const [photoUris, setPhotoUris] = useState({uri: null});
-  const userId = auth().currentUser.uid;
+  const [userId, setUserId] = useState('');
+  useEffect(() => {
+    setUserId(auth().currentUser.uid);
+  }, [userId]);
+  // const userId = auth().currentUser.uid;
 
   const petData = async () => {
     const petList = await firestore().collection(`${userId}`).get();
@@ -80,6 +85,7 @@ export const Dashboard = ({navigation}) => {
           />
         )}
       />
+      <Header />
     </View>
   );
 };

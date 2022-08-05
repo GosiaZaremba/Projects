@@ -53,140 +53,70 @@ const App = () => {
       background: 'transparent',
     },
   };
-  if (!user) {
-    return (
-      <NavigationContainer theme={navTheme}>
-        <LinearGradient
-          colors={[Colors.primary.medium, Colors.accent.dark]}
-          style={styles.rootContainer}>
-          <ImageBackground
-            source={require('./assets/bckg.png')}
-            resizeMode="cover"
-            style={styles.rootContainer}
-            imageStyle={styles.backgroundImge}>
-            <SafeAreaView style={styles.rootContainer}>
-              <StatusBar></StatusBar>
-              <Stack.Navigator
-                initialRouteName="Dashboard"
-                screenOptions={{
-                  headerStyle: {backgroundColor: 'transparent'},
-                  headerTintColor: Colors.secondary.light,
-                  headerTitleStyle: {
-                    fontWeight: 'bold',
-                  },
-                  headerShadowVisible: false,
-                }}>
-                <Stack.Screen
-                  name="Home"
-                  component={Home}
-                  options={{title: `Welcome, ${userMessage}!`}}
-                />
-                <Stack.Screen
-                  name="Register"
-                  component={Register}
-                  options={{title: `${userMessage} `}}
-                />
-                <Stack.Screen
-                  name="Login"
-                  component={Login}
-                  options={{title: `${userMessage}`}}
-                />
-                <Stack.Screen
-                  name="Dashboard"
-                  component={Dashboard}
-                  options={{title: `${userMessage}`}}
-                  initialParams={user}
-                />
-                <Stack.Screen
-                  name="PetPanel"
-                  component={PetPanel}
-                  options={{title: `${userMessage}`}}
-                />
-                <Stack.Screen
-                  name="AddPet"
-                  component={AddPet}
-                  options={{title: `${userMessage}`}}
-                />
-                <Stack.Screen
-                  name="RecoverPassword"
-                  component={RecoverPassword}
-                  options={{title: `${userMessage}`}}
-                />
-              </Stack.Navigator>
-              {/* {!user ? <Register /> : <Dashboard user={user} />} */}
-            </SafeAreaView>
-          </ImageBackground>
-        </LinearGradient>
-      </NavigationContainer>
-    );
-  }
-  if (user) {
-    return (
-      <NavigationContainer theme={navTheme}>
-        <LinearGradient
-          colors={[Colors.primary.medium, Colors.accent.dark]}
-          style={styles.rootContainer}>
-          <ImageBackground
-            source={require('./assets/bckg.png')}
-            resizeMode="cover"
-            style={styles.rootContainer}
-            imageStyle={styles.backgroundImge}>
-            <SafeAreaView style={styles.rootContainer}>
-              <StatusBar></StatusBar>
-              <Stack.Navigator
-                initialRouteName="Home"
-                screenOptions={{
-                  headerStyle: {backgroundColor: 'transparent'},
-                  headerTintColor: Colors.secondary.light,
-                  headerTitleStyle: {
-                    fontWeight: 'bold',
-                  },
-                  headerShadowVisible: false,
-                }}>
-                <Stack.Screen
-                  name="Home"
-                  component={Home}
-                  options={{title: `Welcome, ${userMessage}!`}}
-                />
-                <Stack.Screen
-                  name="Register"
-                  component={Register}
-                  options={{title: `${userMessage} `}}
-                />
-                <Stack.Screen
-                  name="Login"
-                  component={Login}
-                  options={{title: `${userMessage}`}}
-                />
-                <Stack.Screen
-                  name="Dashboard"
-                  component={Dashboard}
-                  options={{title: `${userMessage}`}}
-                  initialParams={user}
-                />
-                <Stack.Screen
-                  name="PetPanel"
-                  component={PetPanel}
-                  options={{title: `${userMessage}`}}
-                />
-                <Stack.Screen
-                  name="AddPet"
-                  component={AddPet}
-                  options={{title: `${userMessage}`}}
-                />
-                <Stack.Screen
-                  name="RecoverPassword"
-                  component={RecoverPassword}
-                  options={{title: `${userMessage}`}}
-                />
-              </Stack.Navigator>
-              {/* {!user ? <Register /> : <Dashboard user={user} />} */}
-            </SafeAreaView>
-          </ImageBackground>
-        </LinearGradient>
-      </NavigationContainer>
-    );
-  }
+  return (
+    <NavigationContainer theme={navTheme}>
+      <LinearGradient
+        colors={[Colors.primary.medium, Colors.accent.dark]}
+        style={styles.rootContainer}>
+        <ImageBackground
+          source={require('./assets/bckg.png')}
+          resizeMode="cover"
+          style={styles.rootContainer}
+          imageStyle={styles.backgroundImge}>
+          <SafeAreaView style={styles.rootContainer}>
+            <StatusBar></StatusBar>
+            <Stack.Navigator
+              initialRouteName="Home"
+              screenOptions={{
+                headerStyle: {backgroundColor: 'transparent'},
+                headerTintColor: Colors.secondary.light,
+                headerTitleStyle: {
+                  fontWeight: 'bold',
+                },
+                headerShadowVisible: false,
+              }}>
+              <Stack.Screen
+                name="Home"
+                component={Home}
+                options={{title: `${userMessage}`}}
+              />
+              <Stack.Screen
+                name="Register"
+                component={Register}
+                options={{title: `${userMessage} `}}
+              />
+              <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{title: `${userMessage}`}}
+              />
+              <Stack.Screen
+                name="Dashboard"
+                component={Dashboard}
+                options={{title: `${userMessage}`}}
+              />
+              <Stack.Screen
+                name="PetPanel"
+                component={PetPanel}
+                options={{title: `${userMessage}`}}
+              />
+              <Stack.Screen
+                name="AddPet"
+                component={AddPet}
+                options={{title: `${userMessage}`}}
+              />
+              <Stack.Screen
+                name="RecoverPassword"
+                component={RecoverPassword}
+                options={{title: `${userMessage}`}}
+              />
+            </Stack.Navigator>
+            {/* {!user ? <Register /> : <Dashboard user={user} />} */}
+          </SafeAreaView>
+        </ImageBackground>
+      </LinearGradient>
+    </NavigationContainer>
+  );
 };
 
 const styles = StyleSheet.create({
