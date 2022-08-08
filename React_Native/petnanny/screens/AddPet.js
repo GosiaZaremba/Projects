@@ -70,6 +70,7 @@ export const AddPet = () => {
       dateOfBirth: '',
       description: '',
     });
+    setPickedImageUri(null);
   };
 
   return (

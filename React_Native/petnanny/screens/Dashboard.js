@@ -13,11 +13,11 @@ import {Header} from '../components/Header';
 export const Dashboard = ({navigation}) => {
   const [pets, setPets] = useState([]);
   const [photoUris, setPhotoUris] = useState({uri: null});
-  const [userId, setUserId] = useState('');
-  useEffect(() => {
-    setUserId(auth().currentUser.uid);
-  }, [userId]);
-  // const userId = auth().currentUser.uid;
+  // const [userId, setUserId] = useState('');
+  // useEffect(() => {
+  //   setUserId(auth().currentUser.uid);
+  // }, [userId]);
+  const userId = auth().currentUser.uid;
 
   const petData = async () => {
     const petList = await firestore().collection(`${userId}`).get();
@@ -51,7 +51,6 @@ export const Dashboard = ({navigation}) => {
   const onPressAddAPet = () => {
     navigation.navigate('AddPet');
   };
-  console.log(pets);
   return (
     <View style={styles.outerContainer}>
       <View>
@@ -85,7 +84,6 @@ export const Dashboard = ({navigation}) => {
           />
         )}
       />
-      <Header />
     </View>
   );
 };
