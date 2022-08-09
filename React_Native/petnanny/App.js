@@ -66,7 +66,7 @@ const App = () => {
           <SafeAreaView style={styles.rootContainer}>
             <StatusBar></StatusBar>
             <Stack.Navigator
-              initialRouteName="Home"
+              initialRouteName="Dashboard"
               screenOptions={{
                 headerStyle: {backgroundColor: 'transparent'},
                 headerTintColor: Colors.secondary.light,
