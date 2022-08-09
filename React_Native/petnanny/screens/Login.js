@@ -23,7 +23,9 @@ export const Login = ({navigation}) => {
     auth()
       .signInWithEmailAndPassword(emailAddress, password)
       .then(() => {
-        console.log('User signed in!');
+        setEmailAdress('');
+        setPassword('');
+        navigation.navigate('Dashboard');
       })
       .catch(error => {
         if (error.code === 'auth/invalid-password') {
@@ -36,9 +38,6 @@ export const Login = ({navigation}) => {
 
         console.error(error);
       });
-    setEmailAdress('');
-    setPassword('');
-    navigation.navigate('Dashboard');
   };
 
   return (
