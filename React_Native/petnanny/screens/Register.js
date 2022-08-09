@@ -29,22 +29,27 @@ export const Register = ({navigation}) => {
       auth()
         .createUserWithEmailAndPassword(emailAddress, password)
         .then(() => {
-          console.log('User account created & signed in!');
+          setEmailAdress('');
+          setPassword('');
+          navigation.navigate('Dashboard');
         })
         .catch(error => {
           if (error.code === 'auth/email-already-in-use') {
-            console.log('That email address is already in use!');
+            Alert.alert(
+              'That email address is already in use!',
+              'Please, use a different email.',
+            );
           }
 
           if (error.code === 'auth/invalid-email') {
-            console.log('That email address is invalid!');
+            Alert.alert(
+              'That email address is invalid!',
+              'Please, use a different email.',
+            );
           }
 
           console.error(error);
         });
-      setEmailAdress('');
-      setPassword('');
-      navigation.navigate('Dashboard');
     } else {
       Alert.alert(
         'Invalid password!',

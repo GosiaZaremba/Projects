@@ -43,30 +43,11 @@ export const PetPanel = ({route, navigation}) => {
 
   useEffect(() => {
     getPetData();
-  }, []);
-
-  // const getPetInfo = () => {
-  //   const singlePetInfo = pets[index];
-  //   setSinglePet(singlePetInfo);
-  // };
-
-  useEffect(() => {
-    getPetData();
   }, [itemId]);
 
   const updatePet = updatedField => {
     firestore().collection(`${userId}`).doc(`${itemId}`).update(updatedField);
   };
-
-  // onPressAction = (stateUpdateFn, updatedArray) =>{
-  //   let date = new Date();
-  //   const newAction = moment(date).format('dddd, HH:mm');
-  //   const newActions = [...updatedArray];
-  //   newActions.unshift(newAction);
-  //   if (newActions.length > 3) newActions.pop();
-  //   stateUpdateFn([...newActions]);
-  //   updatePet({updatedArray});
-  // }
 
   const onPressFood = () => {
     let date = new Date();
@@ -76,6 +57,7 @@ export const PetPanel = ({route, navigation}) => {
     if (newFoods.length > 3) newFoods.pop();
     setFeedingHistory([...newFoods]);
     updatePet({feedingHistory});
+    console.log(feedingHistory);
   };
 
   const onPressWalk = () => {

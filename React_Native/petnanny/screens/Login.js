@@ -19,6 +19,13 @@ export const Login = ({navigation}) => {
     setPassword(enteredText);
   };
 
+  // const validateEmail = emailAddress => {
+  //   var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   return re.test(emailAddress);
+  // };
+
+  // console.log(validateEmail('anystring@anystring.anystring'));
+
   const onPressHandler = () => {
     auth()
       .signInWithEmailAndPassword(emailAddress, password)
@@ -29,11 +36,11 @@ export const Login = ({navigation}) => {
       })
       .catch(error => {
         if (error.code === 'auth/invalid-password') {
-          console.log('That email address is already in use!');
+          Alert.alert('Invalid password!', 'Please, try again.');
         }
 
         if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
+          Alert.alert('Invalid email!', 'Please, try again.');
         }
 
         console.error(error);

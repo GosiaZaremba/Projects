@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Alert} from 'react-native';
 import {Button} from '../components/Button';
 import {Logo} from '../components/Logo';
 import {Title} from '../components/Title';
@@ -20,7 +20,7 @@ export const Home = ({navigation}) => {
   const onSignOut = () => {
     auth()
       .signOut()
-      .then(() => console.log('User signed out!'));
+      .then(() => Alert.alert('Bye!', 'You have succesfully logged out.'));
   };
   return (
     <View style={styles.outerContainer}>

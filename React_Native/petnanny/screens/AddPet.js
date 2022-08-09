@@ -1,6 +1,6 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
-import {StyleSheet, TextInput, View} from 'react-native';
+import {Alert, StyleSheet, TextInput, View} from 'react-native';
 import {Button} from '../components/Button';
 import {AppImagePicker} from '../components/AppImagePicker';
 import {Logo} from '../components/Logo';
@@ -43,9 +43,14 @@ export const AddPet = () => {
       width: 150,
       height: 150,
       cropping: true,
-    }).then(image => {
-      setPickedImageUri(image.path);
-    });
+    })
+      .then(image => {
+        setPickedImageUri(image.path);
+      })
+      .catch(error => {
+        if (error.code === 'E_PICKER_CANCELLED') console.log('boop');
+        Alert.alert(`You did't pick any photo.`, 'Please, try again.');
+      });
   };
 
   const uploadPhoto = async () => {
