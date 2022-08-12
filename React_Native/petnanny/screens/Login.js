@@ -7,7 +7,7 @@ import {useState} from 'react';
 import {Title} from '../components/Title';
 import auth from '@react-native-firebase/auth';
 
-export const Login = ({navigation}) => {
+export const Login = () => {
   const [emailAddress, setEmailAdress] = useState('');
   const [password, setPassword] = useState('');
   const [userName, setUserName] = useState('');
@@ -32,7 +32,6 @@ export const Login = ({navigation}) => {
       .then(() => {
         setEmailAdress('');
         setPassword('');
-        navigation.navigate('Dashboard');
       })
       .catch(error => {
         if (error.code === 'auth/invalid-password') {

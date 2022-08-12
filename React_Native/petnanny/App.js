@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -5,7 +6,6 @@
  * @format
  * @flow strict-local
  */
-
 import React, {useState, useEffect} from 'react';
 import {
   ImageBackground,
@@ -13,19 +13,15 @@ import {
   StatusBar,
   StyleSheet,
 } from 'react-native';
-import firestore from '@react-native-firebase/firestore';
-import {AddPet} from './screens/AddPet';
-import {Dashboard} from './screens/Dashboard';
-import {Home} from './screens/Home';
-import {Login} from './screens/Login';
-import {PetPanel} from './screens/PetPanel';
-import {RecoverPassword} from './screens/RecoverPassword';
-import {Register} from './screens/Register';
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from './constants/colors';
 import auth from '@react-native-firebase/auth';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {DrawerNav} from './screens/DrawerNav';
+import {PetPanel} from './screens/PetPanel';
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [initializing, setInitializing] = useState(true);
@@ -35,7 +31,6 @@ const App = () => {
   function onAuthStateChanged(user) {
     setUser(user);
     if (initializing) setInitializing(false);
-    setUserMessage(user ? user.email : ' Hello Stranger!');
   }
 
   useEffect(() => {
@@ -43,8 +38,6 @@ const App = () => {
 
     return subscriber; // unsubscribe on unmount
   }, [user]);
-
-  const Stack = createNativeStackNavigator();
 
   const navTheme = {
     ...DefaultTheme,
@@ -66,33 +59,12 @@ const App = () => {
           <SafeAreaView style={styles.rootContainer}>
             <StatusBar></StatusBar>
             <Stack.Navigator
-              initialRouteName="Dashboard"
               screenOptions={{
-                headerStyle: {backgroundColor: 'transparent'},
-                headerTintColor: Colors.secondary.light,
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                },
-                headerShadowVisible: false,
+                headerShown: false,
               }}>
               <Stack.Screen
-                name="Home"
-                component={Home}
-                options={{title: `${userMessage}`}}
-              />
-              <Stack.Screen
-                name="Register"
-                component={Register}
-                options={{title: `${userMessage} `}}
-              />
-              <Stack.Screen
-                name="Login"
-                component={Login}
-                options={{title: `${userMessage}`}}
-              />
-              <Stack.Screen
-                name="Dashboard"
-                component={Dashboard}
+                name="Nav"
+                component={DrawerNav}
                 options={{title: `${userMessage}`}}
               />
               <Stack.Screen
@@ -100,18 +72,7 @@ const App = () => {
                 component={PetPanel}
                 options={{title: `${userMessage}`}}
               />
-              <Stack.Screen
-                name="AddPet"
-                component={AddPet}
-                options={{title: `${userMessage}`}}
-              />
-              <Stack.Screen
-                name="RecoverPassword"
-                component={RecoverPassword}
-                options={{title: `${userMessage}`}}
-              />
             </Stack.Navigator>
-            {/* {!user ? <Register /> : <Dashboard user={user} />} */}
           </SafeAreaView>
         </ImageBackground>
       </LinearGradient>

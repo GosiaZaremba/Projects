@@ -3,13 +3,11 @@ import {StyleSheet, View} from 'react-native';
 import {Button} from './Button';
 import auth from '@react-native-firebase/auth';
 
-export const Header = ({navigation}) => {
+export const LogOutButton = ({navigation}) => {
   const logOut = () => {
     auth()
       .signOut()
-      .then(() => {
-        navigation.navigate('Home');
-      });
+      .then(() => {});
   };
 
   return (
