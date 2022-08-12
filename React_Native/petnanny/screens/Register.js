@@ -7,7 +7,7 @@ import {useState} from 'react';
 import {Title} from '../components/Title';
 import auth from '@react-native-firebase/auth';
 
-export const Register = ({navigation}) => {
+export const Register = () => {
   const [emailAddress, setEmailAdress] = useState('');
   const [password, setPassword] = useState('');
 
@@ -31,7 +31,6 @@ export const Register = ({navigation}) => {
         .then(() => {
           setEmailAdress('');
           setPassword('');
-          navigation.navigate('Dashboard');
         })
         .catch(error => {
           if (error.code === 'auth/email-already-in-use') {

@@ -8,7 +8,7 @@ import {AddPetButton} from '../components/AddPetButton';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
-import {Header} from '../components/Header';
+import {Header} from '../components/LogOutButton';
 
 export const Dashboard = ({navigation}) => {
   const [pets, setPets] = useState([]);
@@ -56,7 +56,6 @@ export const Dashboard = ({navigation}) => {
       <View>
         <Logo />
         <View style={styles.titleContainer}>
-          <Title>Your Pets:</Title>
           <AddPetButton onPress={onPressAddAPet}>Add a Pet!</AddPetButton>
         </View>
       </View>
