@@ -81,9 +81,6 @@ export const AddPet = () => {
   return (
     <View style={styles.mainContainer}>
       <Logo />
-      <View>
-        <Title>Add a pet!</Title>
-      </View>
       <View style={styles.form}>
         <AppImagePicker getImage={getImage} pickedImage={pickedImageUri} />
         <TextInput
@@ -132,7 +129,7 @@ export const AddPet = () => {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    marginTop: 30,
+    marginTop: 10,
     alignItems: 'center',
     marginHorizontal: 16,
   },

@@ -20,9 +20,7 @@ export const RecoverPassword = () => {
   return (
     <View style={styles.outerContainer}>
       <Logo />
-      <View>
-        <Title>Please enter Your email.</Title>
-      </View>
+
       <View style={styles.inputsContainer}>
         <TextInput
           style={styles.inputs}
