@@ -55,7 +55,7 @@ export const Dashboard = ({navigation}) => {
     <View style={styles.outerContainer}>
       <View>
         <Logo />
-        <View style={styles.titleContainer}>
+        <View style={styles.buttonContainer}>
           <AddPetButton onPress={onPressAddAPet}>Add a Pet!</AddPetButton>
         </View>
       </View>
@@ -90,17 +90,19 @@ export const Dashboard = ({navigation}) => {
 const styles = StyleSheet.create({
   outerContainer: {
     flex: 1,
-    marginTop: 30,
+    marginTop: 10,
     alignItems: 'center',
   },
   listContainer: {
     width: '100%',
   },
-  titleContainer: {
+  buttonContainer: {
     felx: 1,
     width: '100%',
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    marginRight: 20,
+    marginBottom: 20,
   },
 });

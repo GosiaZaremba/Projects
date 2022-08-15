@@ -61,9 +61,6 @@ export const Register = () => {
   return (
     <View style={styles.outerContainer}>
       <Logo />
-      <View>
-        <Title>Please register Your account!</Title>
-      </View>
       <View style={styles.inputsContainer}>
         <TextInput
           style={styles.inputs}

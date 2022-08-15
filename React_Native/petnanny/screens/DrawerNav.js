@@ -11,8 +11,8 @@ import {RecoverPassword} from './RecoverPassword';
 import {Dashboard} from './Dashboard';
 import {AddPet} from './AddPet';
 import auth from '@react-native-firebase/auth';
-import {LogOutButton} from '../components/LogOutButton';
 import {Colors} from '../constants/colors';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export const DrawerNav = ({navigation}) => {
   const [initializing, setInitializing] = useState(true);
@@ -33,7 +33,7 @@ export const DrawerNav = ({navigation}) => {
     return subscriber; // unsubscribe on unmount
   }, [user]);
 
-  if (!user)
+  if (user)
     return (
       <Drawer.Navigator
         screenOptions={{
@@ -47,39 +47,62 @@ export const DrawerNav = ({navigation}) => {
             fontWeight: 'bold',
           },
           headerShadowVisible: false,
-        }}>
-        <Drawer.Screen name="Login" component={Login} />
-        <Drawer.Screen name="Register" component={Register} />
-        <Drawer.Screen name="RecoverPassword" component={RecoverPassword} />
-      </Drawer.Navigator>
-    );
-  else
-    return (
-      <Drawer.Navigator
-        screenOptions={{
-          swipeEnabled: true,
-          gestureEnabled: true,
-          drawerPosition: 'left',
+          drawerStyle: {
+            backgroundColor: Colors.secondary.medium,
+            width: 200,
+          },
+          drawerActiveTintColor: Colors.primary.medium,
+          drawerIcon: () => <Icon name={'paw'} size={20} color="black" />,
         }}
         drawerContent={props => {
           return (
             <DrawerContentScrollView {...props}>
               <DrawerItemList {...props} />
-              <DrawerItem label="Logout" onPress={logOut} />
+              <DrawerItem
+                icon={() => <Icon color={'black'} size={20} name={'paw-off'} />}
+                label="Logout"
+                onPress={logOut}
+              />
             </DrawerContentScrollView>
           );
         }}>
         <Drawer.Screen
           name="Dashboard"
           component={Dashboard}
-          options={{drawerLabel: 'Your Pets'}}
+          options={{drawerLabel: 'Your Pets', title: 'Your Pets'}}
         />
         <Drawer.Screen
           name="AddPet"
           component={AddPet}
-          options={{drawerLabel: 'Add a Pet!'}}
+          options={{drawerLabel: 'Add a Pet!', title: 'Add a Pet!'}}
         />
         {/* <Drawer.Screen name="Log out" component={LogOutButton} /> */}
+      </Drawer.Navigator>
+    );
+  else
+    return (
+      <Drawer.Navigator
+        screenOptions={{
+          headerTitle: false,
+          swipeEnabled: true,
+          gestureEnabled: true,
+          drawerPosition: 'left',
+          headerStyle: {backgroundColor: 'transparent'},
+          headerTintColor: Colors.secondary.light,
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerShadowVisible: false,
+          drawerStyle: {
+            backgroundColor: Colors.secondary.medium,
+            width: 200,
+          },
+          drawerActiveTintColor: Colors.primary.medium,
+          drawerIcon: () => <Icon name={'paw'} size={20} color="black" />,
+        }}>
+        <Drawer.Screen name="Login" component={Login} />
+        <Drawer.Screen name="Register" component={Register} />
+        <Drawer.Screen name="RecoverPassword" component={RecoverPassword} />
       </Drawer.Navigator>
     );
 };

@@ -49,9 +49,6 @@ export const Login = () => {
   return (
     <View style={styles.outerContainer}>
       <Logo />
-      <View>
-        <Title>Please Log In</Title>
-      </View>
       <View style={styles.inputsContainer}>
         <TextInput
           style={styles.inputs}
