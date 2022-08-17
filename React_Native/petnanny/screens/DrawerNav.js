@@ -100,9 +100,21 @@ export const DrawerNav = ({navigation}) => {
           drawerActiveTintColor: Colors.primary.medium,
           drawerIcon: () => <Icon name={'paw'} size={20} color="black" />,
         }}>
-        <Drawer.Screen name="Login" component={Login} />
-        <Drawer.Screen name="Register" component={Register} />
-        <Drawer.Screen name="RecoverPassword" component={RecoverPassword} />
+        <Drawer.Screen
+          name="Login"
+          component={Login}
+          options={{drawerLabel: 'Log In', title: 'Log In'}}
+        />
+        <Drawer.Screen
+          name="Register"
+          component={Register}
+          options={{drawerLabel: 'Register', title: 'Register'}}
+        />
+        <Drawer.Screen
+          name="RecoverPassword"
+          component={RecoverPassword}
+          options={{drawerLabel: 'Recover Password', title: 'Recover Password'}}
+        />
       </Drawer.Navigator>
     );
 };

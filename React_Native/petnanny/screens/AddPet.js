@@ -4,7 +4,6 @@ import {Alert, StyleSheet, TextInput, View} from 'react-native';
 import {Button} from '../components/Button';
 import {AppImagePicker} from '../components/AppImagePicker';
 import {Logo} from '../components/Logo';
-import {Title} from '../components/Title';
 import {Colors} from '../constants/colors';
 import ImagePicker from 'react-native-image-crop-picker';
 import firestore from '@react-native-firebase/firestore';
@@ -36,7 +35,7 @@ export const AddPet = () => {
     });
   };
 
-  const [pickedImageUri, setPickedImageUri] = useState();
+  const [pickedImageUri, setPickedImageUri] = useState(null);
 
   const getImage = () => {
     ImagePicker.openPicker({
@@ -48,7 +47,7 @@ export const AddPet = () => {
         setPickedImageUri(image.path);
       })
       .catch(error => {
-        if (error.code === 'E_PICKER_CANCELLED') console.log('boop');
+        if (error.code === 'E_PICKER_CANCELLED');
         Alert.alert(`You did't pick any photo.`, 'Please, try again.');
       });
   };
@@ -80,9 +79,11 @@ export const AddPet = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <Logo />
-      <View style={styles.form}>
+      <View style={styles.imagePicker}>
+        <Logo />
         <AppImagePicker getImage={getImage} pickedImage={pickedImageUri} />
+      </View>
+      <View style={styles.form}>
         <TextInput
           style={styles.inputs}
           placeholder="Name"
@@ -119,8 +120,6 @@ export const AddPet = () => {
           maxLength={140}
           multiline={true}
         />
-      </View>
-      <View style={styles.buttonContainer}>
         <Button onPress={onPressHandler}>Submit</Button>
       </View>
     </View>
@@ -129,21 +128,29 @@ export const AddPet = () => {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    marginTop: 10,
+    // width: 'auto',
+    // height: 'auto',
+    flex: 1,
     alignItems: 'center',
     marginHorizontal: 16,
+    marginVertical: 10,
   },
   inputs: {
     backgroundColor: Colors.secondary.light,
     marginTop: 10,
-    padding: 8,
+    padding: 10,
     borderRadius: 25,
+    fontSize: 18,
   },
   form: {
+    flex: 1,
     width: '100%',
     alignItems: 'stretch',
   },
   buttonContainer: {
     width: '100%',
+  },
+  imagePicker: {
+    flex: 1,
   },
 });

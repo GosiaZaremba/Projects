@@ -7,12 +7,7 @@ import 'react-native-gesture-handler';
  * @flow strict-local
  */
 import React, {useState, useEffect} from 'react';
-import {
-  ImageBackground,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-} from 'react-native';
+import {ImageBackground, StatusBar, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from './constants/colors';
 import auth from '@react-native-firebase/auth';
@@ -49,31 +44,29 @@ const App = () => {
   return (
     <NavigationContainer theme={navTheme}>
       <LinearGradient
-        colors={[Colors.primary.medium, Colors.accent.dark]}
+        colors={[Colors.primary.medium, Colors.accent.medium]}
         style={styles.rootContainer}>
         <ImageBackground
           source={require('./assets/bckg.png')}
           resizeMode="cover"
           style={styles.rootContainer}
           imageStyle={styles.backgroundImge}>
-          <SafeAreaView style={styles.rootContainer}>
-            <StatusBar></StatusBar>
-            <Stack.Navigator
-              screenOptions={{
-                headerShown: false,
-              }}>
-              <Stack.Screen
-                name="Nav"
-                component={DrawerNav}
-                options={{title: `${userMessage}`}}
-              />
-              <Stack.Screen
-                name="PetPanel"
-                component={PetPanel}
-                options={{title: `${userMessage}`}}
-              />
-            </Stack.Navigator>
-          </SafeAreaView>
+          <StatusBar></StatusBar>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}>
+            <Stack.Screen
+              name="Nav"
+              component={DrawerNav}
+              options={{title: `${userMessage}`}}
+            />
+            <Stack.Screen
+              name="PetPanel"
+              component={PetPanel}
+              options={{title: `${userMessage}`}}
+            />
+          </Stack.Navigator>
         </ImageBackground>
       </LinearGradient>
     </NavigationContainer>
@@ -87,6 +80,7 @@ const styles = StyleSheet.create({
 
   backgroundImge: {
     opacity: 0.3,
+    resizeMode: 'repeat',
   },
 });
 export default App;

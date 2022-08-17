@@ -63,10 +63,10 @@ export const PetPanel = ({route, navigation}) => {
   const onPressWalk = () => {
     let date = new Date();
     const newWalk = moment(date).format('dddd, HH:MM');
-    const newWalks = [...walksHistory];
-    newWalks.unshift(newWalk);
-    if (newWalks.length > 3) newWalks.pop();
-    setWalksHistory([...newWalks]);
+    // const newWalks = [...walksHistory];
+    walksHistory.unshift(newWalk);
+    if (walksHistory.length > 3) walksHistory.pop();
+    setWalksHistory([...walksHistory]);
     updatePet({walksHistory});
   };
 
