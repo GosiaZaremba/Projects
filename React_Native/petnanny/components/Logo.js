@@ -13,7 +13,6 @@ export const Logo = () => {
 
 const styles = StyleSheet.create({
   logoContainer: {
-    marginTop: 10,
     alignSelf: 'center',
   },
   logo: {

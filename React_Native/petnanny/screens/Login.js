@@ -82,7 +82,6 @@ export const Login = () => {
 
 const styles = StyleSheet.create({
   outerContainer: {
-    marginTop: 30,
     alignItems: 'center',
     marginHorizontal: 16,
   },
