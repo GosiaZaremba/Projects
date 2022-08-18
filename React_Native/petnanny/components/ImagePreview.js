@@ -25,15 +25,15 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   imagePreview: {
-    width: 100,
+    width: '50%',
     height: 100,
     borderRadius: 50,
     borderWidth: 1,
     borderColor: Colors.secondary.light,
   },
   elements: {
-    flex: 1,
-    width: 100,
+    // flex: 1,
+    width: '50%',
     height: 100,
   },
 });
