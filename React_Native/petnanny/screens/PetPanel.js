@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Logo} from '../components/Logo';
 import {Card} from '../components/Card';
-import {PanelButton} from '../components/PanelButton';
+import {ImageButton, PanelButton} from '../components/ImageButton';
 import {Colors} from '../constants/colors';
 import {useState} from 'react';
 import moment from 'moment';
@@ -14,7 +14,7 @@ export const PetPanel = ({route, navigation}) => {
   const [walksHistory, setWalksHistory] = useState([]);
   const [feedingHistory, setFeedingHistory] = useState([]);
   const [pillsHistory, setPillsHistory] = useState([]);
-  const [playHistory, setPlaysHistory] = useState([]);
+  const [playHistory, setPlayHistory] = useState([]);
   const [singlePet, setSinglePet] = useState({
     feedingHistory: [],
     playHistory: [],
@@ -26,7 +26,7 @@ export const PetPanel = ({route, navigation}) => {
     dateOfBirth: '',
   });
   const userId = auth().currentUser.uid;
-  const {itemId, photoUris, index, pets} = route.params;
+  const {itemId, photoUris, index} = route.params;
 
   const getPetData = () => {
     firestore()
@@ -35,73 +35,61 @@ export const PetPanel = ({route, navigation}) => {
       .onSnapshot(documentSnapshot => {
         const petData = documentSnapshot._data;
         setSinglePet(petData);
+        setFeedingHistory(petData.feedingHistory.slice(0, 3));
+        setWalksHistory(petData.walksHistory.slice(0, 3));
+        setPillsHistory(petData.pillsHistory.slice(0, 3));
+        setPlayHistory(petData.playHistory.slice(0, 3));
       });
-
-    // Stop listening for updates when no longer required
-    // return () => getPetData();
   };
 
   useEffect(() => {
     getPetData();
   }, [itemId]);
 
-  const updatePet = updatedField => {
-    firestore().collection(`${userId}`).doc(`${itemId}`).update(updatedField);
+  const onPressAddFood = async () => {
+    const newDate = moment().format('dddd, HH:mm:ss');
+    await firestore()
+      .collection(`${userId}`)
+      .doc(`${itemId}`)
+      .update({feedingHistory: [newDate, ...feedingHistory]});
   };
 
-  const onPressFood = () => {
-    let date = new Date();
-    const newFeed = moment(date).format('dddd, HH:mm');
-    const newFoods = [...feedingHistory];
-    newFoods.unshift(newFeed);
-    if (newFoods.length > 3) newFoods.pop();
-    setFeedingHistory([...newFoods]);
-    updatePet({feedingHistory});
-    console.log(feedingHistory);
+  const onPressAddWalk = async () => {
+    const newDate = moment().format('dddd, HH:mm');
+    await firestore()
+      .collection(`${userId}`)
+      .doc(`${itemId}`)
+      .update({walksHistory: [newDate, ...walksHistory]});
   };
 
-  const onPressWalk = () => {
-    let date = new Date();
-    const newWalk = moment(date).format('dddd, HH:MM');
-    // const newWalks = [...walksHistory];
-    walksHistory.unshift(newWalk);
-    if (walksHistory.length > 3) walksHistory.pop();
-    setWalksHistory([...walksHistory]);
-    updatePet({walksHistory});
+  const onPressAddPlay = async () => {
+    const newDate = moment().format('dddd, HH:mm');
+    await firestore()
+      .collection(`${userId}`)
+      .doc(`${itemId}`)
+      .update({playHistory: [newDate, ...playHistory]});
   };
 
-  const onPressPills = () => {
-    let date = new Date();
-    const newPill = moment(date).format('dddd, HH:MM');
-    const newPills = [...pillsHistory];
-    newPills.unshift(newPill);
-    if (newPills.length > 3) newPills.pop();
-    setPillsHistory([...newPills]);
-    updatePet({pillsHistory});
+  const onPressAddPill = async () => {
+    const newDate = moment().format('dddd, HH:mm');
+    await firestore()
+      .collection(`${userId}`)
+      .doc(`${itemId}`)
+      .update({pillsHistory: [newDate, ...pillsHistory]});
   };
-  const onPressPlays = () => {
-    let date = new Date();
-    const newPlay = moment(date).format('dddd, HH:MM');
-    const newPlays = [...playHistory];
-    newPlays.unshift(newPlay);
-    if (newPlays.length > 3) newPlays.pop();
-    setPlaysHistory([...newPlays]);
-    updatePet({playHistory});
-  };
-  console.log(singlePet);
+
   return (
     <View style={styles.outerContainer}>
       <Logo />
       <Card>
         <PetInfo pet={singlePet} photoUris={photoUris} index={index} />
-
         <View style={styles.innerContainer}>
-          <PanelButton
+          <ImageButton
             buttonType={require('../assets/images/feed.png')}
-            onPress={onPressFood}
+            onPress={onPressAddFood}
           />
           <View style={styles.dataView}>
-            {singlePet.feedingHistory.map((food, index) => (
+            {feedingHistory.map((food, index) => (
               <Text key={index} style={styles.dataText}>
                 {food}
               </Text>
@@ -109,12 +97,12 @@ export const PetPanel = ({route, navigation}) => {
           </View>
         </View>
         <View style={styles.innerContainer}>
-          <PanelButton
+          <ImageButton
             buttonType={require('../assets/images/poop.png')}
-            onPress={onPressWalk}
+            onPress={onPressAddWalk}
           />
           <View style={styles.dataView}>
-            {singlePet.walksHistory.map((walk, index) => (
+            {walksHistory.map((walk, index) => (
               <Text key={index} style={styles.dataText}>
                 {walk}
               </Text>
@@ -122,12 +110,12 @@ export const PetPanel = ({route, navigation}) => {
           </View>
         </View>
         <View style={styles.innerContainer}>
-          <PanelButton
-            buttonType={require('../assets/images/pills.png')}
-            onPress={onPressPills}
+          <ImageButton
+            buttonType={require('../assets/images/play.png')}
+            onPress={onPressAddPlay}
           />
           <View style={styles.dataView}>
-            {singlePet.pillsHistory.map((pill, index) => (
+            {playHistory.map((pill, index) => (
               <Text key={index} style={styles.dataText}>
                 {pill}
               </Text>
@@ -135,12 +123,12 @@ export const PetPanel = ({route, navigation}) => {
           </View>
         </View>
         <View style={styles.innerContainer}>
-          <PanelButton
-            buttonType={require('../assets/images/play.png')}
-            onPress={onPressPlays}
+          <ImageButton
+            buttonType={require('../assets/images/pills.png')}
+            onPress={onPressAddPill}
           />
           <View style={styles.dataView}>
-            {singlePet.playHistory.map((play, index) => (
+            {pillsHistory.map((play, index) => (
               <Text key={index} style={styles.dataText}>
                 {play}
               </Text>
