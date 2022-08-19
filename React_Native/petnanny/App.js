@@ -13,8 +13,8 @@ import {Colors} from './constants/colors';
 import auth from '@react-native-firebase/auth';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {DrawerNav} from './screens/DrawerNav';
 import {PetPanel} from './screens/PetPanel';
+import {DrawerNav} from './components/DrawerNav';
 
 const Stack = createNativeStackNavigator();
 

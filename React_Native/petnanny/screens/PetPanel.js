@@ -10,7 +10,7 @@ import {PetInfo} from '../components/PetInfo';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
-export const PetPanel = ({route, navigation}) => {
+export const PetPanel = ({route}) => {
   const [walksHistory, setWalksHistory] = useState([]);
   const [feedingHistory, setFeedingHistory] = useState([]);
   const [pillsHistory, setPillsHistory] = useState([]);
@@ -47,7 +47,7 @@ export const PetPanel = ({route, navigation}) => {
   }, [itemId]);
 
   const onPressAddFood = async () => {
-    const newDate = moment().format('dddd, HH:mm:ss');
+    const newDate = moment().format('dddd, HH:mm');
     await firestore()
       .collection(`${userId}`)
       .doc(`${itemId}`)
@@ -164,9 +164,3 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
-// const petData = documentSnapshot._docs.map(item => ({
-//   id: item._ref.id,
-//   data: item._data,
-// }));
-// setPets(petData);
