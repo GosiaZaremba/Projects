@@ -1,12 +1,11 @@
 import React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
-import {Colors} from '../constants/colors';
+import {View} from 'react-native';
 import {Button} from './Button';
 import {ImagePreview} from './ImagePreview';
 
 export const AppImagePicker = ({getImage, pickedImage}) => {
   return (
-    <View styles={styles.outerContainer}>
+    <View>
       {pickedImage ? (
         <ImagePreview pickedImage={pickedImage} getImage={getImage} />
       ) : (
@@ -15,10 +14,3 @@ export const AppImagePicker = ({getImage, pickedImage}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  outerContainer: {
-    flex: 1,
-    padding: 10,
-  },
-});

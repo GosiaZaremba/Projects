@@ -2,21 +2,16 @@ import React, {useEffect, useState} from 'react';
 
 import {FlatList, StyleSheet, View} from 'react-native';
 import {Logo} from '../components/Logo';
-import {Title} from '../components/Title';
-import {PetList} from '../components/PetList';
-import {AddPetButton} from '../components/AddPetButton';
+import {PetListItem} from '../components/PetListItem';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
-import {Header} from '../components/LogOutButton';
+import {Button} from '../components/Button';
 
 export const Dashboard = ({navigation}) => {
   const [pets, setPets] = useState([]);
   const [photoUris, setPhotoUris] = useState({uri: null});
-  // const [userId, setUserId] = useState('');
-  // useEffect(() => {
-  //   setUserId(auth().currentUser.uid);
-  // }, [userId]);
+
   const userId = auth().currentUser.uid;
 
   const petData = async () => {
@@ -47,7 +42,6 @@ export const Dashboard = ({navigation}) => {
   useEffect(() => {
     getPhotos();
   }, [pets]);
-
   const onPressAddAPet = () => {
     navigation.navigate('AddPet');
   };
@@ -56,14 +50,14 @@ export const Dashboard = ({navigation}) => {
       <View>
         <Logo />
         <View style={styles.buttonContainer}>
-          <AddPetButton onPress={onPressAddAPet}>Add a Pet!</AddPetButton>
+          <Button onPress={onPressAddAPet}>Add a Pet!</Button>
         </View>
       </View>
       <FlatList
         style={styles.listContainer}
         data={pets}
         renderItem={({item, index}) => (
-          <PetList
+          <PetListItem
             onPress={() => {
               navigation.navigate(
                 'PetPanel',

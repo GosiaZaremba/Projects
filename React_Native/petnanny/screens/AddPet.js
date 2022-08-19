@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import {Alert, StyleSheet, TextInput, View} from 'react-native';
 import {Button} from '../components/Button';
 import {AppImagePicker} from '../components/AppImagePicker';
@@ -10,6 +10,7 @@ import firestore from '@react-native-firebase/firestore';
 import uuid from 'react-native-uuid';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 export const AddPet = () => {
   const user = auth().currentUser;
@@ -79,48 +80,50 @@ export const AddPet = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.imagePicker}>
-        <Logo />
+      <View style={styles.logoPickerContainer}>
+        {pickedImageUri ? null : <Logo />}
         <AppImagePicker getImage={getImage} pickedImage={pickedImageUri} />
       </View>
       <View style={styles.form}>
-        <TextInput
-          style={styles.inputs}
-          placeholder="Name"
-          autoCorrect={false}
-          spellCheck={false}
-          value={form.name}
-          onChangeText={text => onChangeHandler('name', text)}
-        />
-        <TextInput
-          style={styles.inputs}
-          placeholder="Breed"
-          autoCorrect={false}
-          spellCheck={false}
-          value={form.breed}
-          onChangeText={text => onChangeHandler('breed', text)}
-        />
-        <TextInput
-          keyboardType="number-pad"
-          style={styles.inputs}
-          placeholder="Date of birth"
-          autoCorrect={false}
-          spellCheck={false}
-          value={form.dateOfBirth}
-          onChangeText={text => onChangeHandler('dateOfBirth', text)}
-        />
-        <TextInput
-          style={styles.inputs}
-          placeholder="Description"
-          autoCorrect={false}
-          spellCheck={false}
-          value={form.description}
-          onChangeText={text => onChangeHandler('description', text)}
-          autoCapitalize="sentences"
-          maxLength={140}
-          multiline={true}
-        />
-        <Button onPress={onPressHandler}>Submit</Button>
+        <KeyboardAwareScrollView>
+          <TextInput
+            style={styles.inputs}
+            placeholder="Name"
+            autoCorrect={false}
+            spellCheck={false}
+            value={form.name}
+            onChangeText={text => onChangeHandler('name', text)}
+          />
+          <TextInput
+            style={styles.inputs}
+            placeholder="Breed"
+            autoCorrect={false}
+            spellCheck={false}
+            value={form.breed}
+            onChangeText={text => onChangeHandler('breed', text)}
+          />
+          <TextInput
+            keyboardType="number-pad"
+            style={styles.inputs}
+            placeholder="Date of birth"
+            autoCorrect={false}
+            spellCheck={false}
+            value={form.dateOfBirth}
+            onChangeText={text => onChangeHandler('dateOfBirth', text)}
+          />
+          <TextInput
+            style={styles.inputs}
+            placeholder="Description"
+            autoCorrect={false}
+            spellCheck={false}
+            value={form.description}
+            onChangeText={text => onChangeHandler('description', text)}
+            autoCapitalize="sentences"
+            maxLength={140}
+            multiline={true}
+          />
+          <Button onPress={onPressHandler}>Submit</Button>
+        </KeyboardAwareScrollView>
       </View>
     </View>
   );
@@ -128,8 +131,6 @@ export const AddPet = () => {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    // width: 'auto',
-    // height: 'auto',
     flex: 1,
     alignItems: 'center',
     marginHorizontal: 16,
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
   },
   inputs: {
     backgroundColor: Colors.secondary.light,
-    marginTop: 10,
+    margin: 5,
     padding: 10,
     borderRadius: 25,
     fontSize: 18,
@@ -147,10 +148,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'stretch',
   },
-  buttonContainer: {
+  logoPickerContainer: {
     width: '100%',
-  },
-  imagePicker: {
-    flex: 1,
   },
 });

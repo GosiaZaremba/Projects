@@ -4,7 +4,7 @@ import {Colors} from '../constants/colors';
 import {Card} from './Card';
 import {PetPhoto} from './PetPhoto';
 
-export const PetList = ({onPress, name, photoUrls, index}) => {
+export const PetListItem = ({onPress, name, photoUrls, index}) => {
   return (
     <Card>
       <Pressable

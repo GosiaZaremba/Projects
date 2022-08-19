@@ -13,6 +13,8 @@ export const Logo = () => {
 
 const styles = StyleSheet.create({
   logoContainer: {
+    width: 150,
+    height: 150,
     alignSelf: 'center',
   },
   logo: {

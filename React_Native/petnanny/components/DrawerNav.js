@@ -5,16 +5,16 @@ import {
   DrawerItem,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import {Register} from './Register';
-import {Login} from './Login';
-import {RecoverPassword} from './RecoverPassword';
-import {Dashboard} from './Dashboard';
-import {AddPet} from './AddPet';
+import {Register} from '../screens/Register';
+import {Login} from '../screens/Login';
+import {RecoverPassword} from '../screens/RecoverPassword';
+import {Dashboard} from '../screens/Dashboard';
+import {AddPet} from '../screens/AddPet';
 import auth from '@react-native-firebase/auth';
 import {Colors} from '../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export const DrawerNav = ({navigation}) => {
+export const DrawerNav = () => {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
 
