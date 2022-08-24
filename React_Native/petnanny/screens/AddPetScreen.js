@@ -1,8 +1,8 @@
 import React from 'react';
 import {useState} from 'react';
 import {Alert, StyleSheet, TextInput, View} from 'react-native';
-import {Button} from '../components/Button';
-import {AppImagePicker} from '../components/AppImagePicker';
+import {Button} from '../components/buttons/Button';
+import {AppImagePicker} from '../components/imagePicker/AppImagePicker';
 import {Logo} from '../components/Logo';
 import {Colors} from '../constants/colors';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -12,7 +12,7 @@ import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
-export const AddPet = () => {
+export const AddPetScreen = () => {
   const user = auth().currentUser;
 
   const [form, setForm] = useState({
@@ -21,7 +21,7 @@ export const AddPet = () => {
     dateOfBirth: '',
     description: '',
     feedingHistory: [''],
-    playHistory: [''],
+    playsHistory: [''],
     walksHistory: [''],
     pillsHistory: [''],
   });

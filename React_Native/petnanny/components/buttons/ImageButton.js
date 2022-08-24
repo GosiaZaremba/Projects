@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, Pressable, StyleSheet, View} from 'react-native';
-import {Colors} from '../constants/colors';
+import {Colors} from '../../constants/colors';
 
 export const ImageButton = ({buttonType, onPress}) => {
   return (

@@ -13,7 +13,7 @@ import {Colors} from './constants/colors';
 import auth from '@react-native-firebase/auth';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {PetPanel} from './screens/PetPanel';
+import {PetScreen} from './screens/PetScreen';
 import {DrawerNav} from './components/DrawerNav';
 
 const Stack = createNativeStackNavigator();
@@ -63,7 +63,7 @@ const App = () => {
             />
             <Stack.Screen
               name="PetPanel"
-              component={PetPanel}
+              component={PetScreen}
               options={{title: `${userMessage}`}}
             />
           </Stack.Navigator>

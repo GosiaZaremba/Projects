@@ -2,11 +2,10 @@ import React from 'react';
 import {Alert, StyleSheet, TextInput, View} from 'react-native';
 import {Logo} from '../components/Logo';
 import {Colors} from '../constants/colors';
-import {Button} from '../components/Button';
+import {Button} from '../components/buttons/Button';
 import {useState} from 'react';
-import {Title} from '../components/Title';
 
-export const RecoverPassword = () => {
+export const RecoverPasswordScreen = () => {
   const [emailAddress, setEmailAdress] = useState('');
 
   const emailHandler = enteredText => {
