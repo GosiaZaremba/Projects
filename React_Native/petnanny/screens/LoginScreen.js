@@ -1,15 +1,15 @@
 import React from 'react';
-import {Alert, StyleSheet, TextInput, View, Text} from 'react-native';
+import {Alert, StyleSheet, TextInput, View} from 'react-native';
 import {Logo} from '../components/Logo';
 import {Colors} from '../constants/colors';
-import {Button} from '../components/Button';
+import {Button} from '../components/buttons/Button';
 import {useState} from 'react';
-import {Title} from '../components/Title';
 import auth from '@react-native-firebase/auth';
 
-export const Register = () => {
+export const LoginScreen = () => {
   const [emailAddress, setEmailAdress] = useState('');
   const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('');
 
   const emailHandler = enteredText => {
     setEmailAdress(enteredText);
@@ -18,44 +18,31 @@ export const Register = () => {
     setPassword(enteredText);
   };
 
+  // const validateEmail = emailAddress => {
+  //   var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   return re.test(emailAddress);
+  // };
+
+  // console.log(validateEmail('anystring@anystring.anystring'));
+
   const onPressHandler = () => {
-    if (
-      password.match(/[a-z]/g) &&
-      password.match(/[A-Z]/g) &&
-      password.match(/[0-9]/g) &&
-      password.match(/[^a-zA-Z\d]/g) &&
-      password.length >= 8
-    ) {
-      auth()
-        .createUserWithEmailAndPassword(emailAddress, password)
-        .then(() => {
-          setEmailAdress('');
-          setPassword('');
-        })
-        .catch(error => {
-          if (error.code === 'auth/email-already-in-use') {
-            Alert.alert(
-              'That email address is already in use!',
-              'Please, use a different email.',
-            );
-          }
+    auth()
+      .signInWithEmailAndPassword(emailAddress, password)
+      .then(() => {
+        setEmailAdress('');
+        setPassword('');
+      })
+      .catch(error => {
+        if (error.code === 'auth/invalid-password') {
+          Alert.alert('Invalid password!', 'Please, try again.');
+        }
 
-          if (error.code === 'auth/invalid-email') {
-            Alert.alert(
-              'That email address is invalid!',
-              'Please, use a different email.',
-            );
-          }
+        if (error.code === 'auth/invalid-email') {
+          Alert.alert('Invalid email!', 'Please, try again.');
+        }
 
-          console.error(error);
-        });
-    } else {
-      Alert.alert(
-        'Invalid password!',
-        'The password should contain at least 8 characters, including at least one uppercase letter and one lowercase letter, one special character, and one number.',
-        [{text: 'OK', style: 'destructive', onPress: setPassword('')}],
-      );
-    }
+        console.error(error);
+      });
   };
 
   return (
@@ -86,7 +73,7 @@ export const Register = () => {
         />
       </View>
       <View style={styles.buttonContainer}>
-        <Button onPress={onPressHandler}>Register</Button>
+        <Button onPress={onPressHandler}>Login</Button>
       </View>
     </View>
   );

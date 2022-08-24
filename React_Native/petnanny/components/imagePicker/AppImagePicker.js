@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {Button} from './Button';
+import {Button} from '../buttons/Button';
 import {ImagePreview} from './ImagePreview';
 
 export const AppImagePicker = ({getImage, pickedImage}) => {

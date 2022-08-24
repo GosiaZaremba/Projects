@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
-import {Colors} from '../constants/colors';
-import {PetPhoto} from './PetPhoto';
+import {Colors} from '../../constants/colors';
+import {PetPhoto} from '../PetPhoto';
 
 export const PetInfo = ({pet, photoUris, index}) => {
   const petInfo = pet;

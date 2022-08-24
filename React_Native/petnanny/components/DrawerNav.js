@@ -5,11 +5,11 @@ import {
   DrawerItem,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import {Register} from '../screens/Register';
-import {Login} from '../screens/Login';
-import {RecoverPassword} from '../screens/RecoverPassword';
-import {Dashboard} from '../screens/Dashboard';
-import {AddPet} from '../screens/AddPet';
+import {RegisterScreen} from '../screens/RegisterScreen';
+import {LoginScreen} from '../screens/LoginScreen';
+import {RecoverPasswordScreen} from '../screens/RecoverPasswordScreen';
+import {PetListScreen} from '../screens/PetListScreen';
+import {AddPetScreen} from '../screens/AddPetScreen';
 import auth from '@react-native-firebase/auth';
 import {Colors} from '../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -67,16 +67,15 @@ export const DrawerNav = () => {
           );
         }}>
         <Drawer.Screen
-          name="Dashboard"
-          component={Dashboard}
+          name="PetListScreen"
+          component={PetListScreen}
           options={{drawerLabel: 'Your Pets', title: 'Your Pets'}}
         />
         <Drawer.Screen
-          name="AddPet"
-          component={AddPet}
+          name="AddPetScreen"
+          component={AddPetScreen}
           options={{drawerLabel: 'Add a Pet!', title: 'Add a Pet!'}}
         />
-        {/* <Drawer.Screen name="Log out" component={LogOutButton} /> */}
       </Drawer.Navigator>
     );
   else
@@ -102,17 +101,17 @@ export const DrawerNav = () => {
         }}>
         <Drawer.Screen
           name="Login"
-          component={Login}
+          component={LoginScreen}
           options={{drawerLabel: 'Log In', title: 'Log In'}}
         />
         <Drawer.Screen
           name="Register"
-          component={Register}
+          component={RegisterScreen}
           options={{drawerLabel: 'Register', title: 'Register'}}
         />
         <Drawer.Screen
           name="RecoverPassword"
-          component={RecoverPassword}
+          component={RecoverPasswordScreen}
           options={{drawerLabel: 'Recover Password', title: 'Recover Password'}}
         />
       </Drawer.Navigator>

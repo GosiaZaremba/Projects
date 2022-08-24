@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
-import {Colors} from '../constants/colors';
-import {Button} from './Button';
+import {Colors} from '../../constants/colors';
+import {Button} from '../buttons/Button';
 
 export const ImagePreview = ({pickedImage, getImage}) => {
   return (

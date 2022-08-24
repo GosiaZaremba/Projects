@@ -6,9 +6,9 @@ import {PetListItem} from '../components/PetListItem';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
-import {Button} from '../components/Button';
+import {Button} from '../components/buttons/Button';
 
-export const Dashboard = ({navigation}) => {
+export const PetListScreen = ({navigation}) => {
   const [pets, setPets] = useState([]);
   const [photoUris, setPhotoUris] = useState({uri: null});
 
@@ -62,7 +62,7 @@ export const Dashboard = ({navigation}) => {
               navigation.navigate(
                 'PetPanel',
                 {
-                  itemId: item.id,
+                  petId: item.id,
                   photoUris: photoUris,
                   index: index,
                 },

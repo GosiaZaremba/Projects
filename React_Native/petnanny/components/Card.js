@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, ScrollView} from 'react-native';
+import {StyleSheet, ScrollView} from 'react-native';
 import {Colors} from '../constants/colors';
 
 export const Card = ({children}) => {
