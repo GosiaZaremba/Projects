@@ -1,5 +1,4 @@
-import React from 'react';
-import {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {Alert, StyleSheet, TextInput, View} from 'react-native';
 import {Button} from '../components/buttons/Button';
 import {AppImagePicker} from '../components/imagePicker/AppImagePicker';
@@ -12,7 +11,7 @@ import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
-export const AddPetScreen = () => {
+export const AddPetScreen = ({navigation}) => {
   const user = auth().currentUser;
 
   const [form, setForm] = useState({
@@ -62,7 +61,6 @@ export const AddPetScreen = () => {
     const url = await reference.getDownloadURL().catch(error => {
       throw error;
     });
-    console.log(url);
     return url;
   };
 
@@ -76,8 +74,8 @@ export const AddPetScreen = () => {
       description: '',
     });
     setPickedImageUri(null);
+    navigation.navigate('PetListScreen');
   };
-
   return (
     <View style={styles.mainContainer}>
       <View style={styles.logoPickerContainer}>

@@ -10,22 +10,22 @@ import {Button} from '../components/buttons/Button';
 
 export const PetListScreen = ({navigation}) => {
   const [pets, setPets] = useState([]);
-  const [photoUris, setPhotoUris] = useState({uri: null});
+  const [photoUris, setPhotoUris] = useState([]);
 
   const userId = auth().currentUser.uid;
 
-  const petData = async () => {
+  const getPetData = async () => {
     const petList = await firestore().collection(`${userId}`).get();
-    const getPetData = petList._docs.map(item => ({
+    const petData = petList._docs.map(item => ({
       id: item._ref.id,
       data: item._data,
     }));
 
-    setPets(getPetData);
+    setPets(petData);
   };
 
   useEffect(() => {
-    petData();
+    getPetData();
   }, []);
 
   const getPhotos = async () => {
@@ -42,9 +42,11 @@ export const PetListScreen = ({navigation}) => {
   useEffect(() => {
     getPhotos();
   }, [pets]);
+
   const onPressAddAPet = () => {
-    navigation.navigate('AddPet');
+    navigation.navigate('AddPetScreen');
   };
+
   return (
     <View style={styles.outerContainer}>
       <View>
@@ -54,26 +56,24 @@ export const PetListScreen = ({navigation}) => {
         </View>
       </View>
       <FlatList
+        refreshing={false}
+        onRefresh={() => getPetData()}
         style={styles.listContainer}
         data={pets}
         renderItem={({item, index}) => (
           <PetListItem
             onPress={() => {
-              navigation.navigate(
-                'PetPanel',
-                {
-                  petId: item.id,
-                  photoUris: photoUris,
-                  index: index,
-                },
-                petData(),
-              );
+              navigation.navigate('PetScreen', {
+                petId: item.id,
+                photoUris: photoUris,
+                index: index,
+              });
             }}
-            id={item.id}
+            petId={item.id}
             name={item.data.name}
             keyExtractor={item => item}
             photoUrls={photoUris}
-            index={index}
+            userId={userId}
           />
         )}
       />
