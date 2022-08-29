@@ -1,10 +1,39 @@
 import React from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Alert, Pressable, StyleSheet, Text, View} from 'react-native';
 import {Colors} from '../constants/colors';
 import {Card} from './Card';
 import {PetPhoto} from './PetPhoto';
+import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 
-export const PetListItem = ({onPress, name, photoUrls, index}) => {
+export const PetListItem = ({onPress, name, photoUrls, petId, userId}) => {
+  const getPetImage = () => {
+    return photoUrls.find(url => url.uri.includes(petId));
+  };
+
+  const deletePet = petId => {
+    console.log('petId', petId);
+    Alert.alert('Delete pet?', 'Are You sure?', [
+      {
+        text: 'Yes',
+        onPress: () => {
+          firestore()
+            .collection(`${userId}`)
+            .doc(`${petId}`)
+            .delete()
+            .then(() => {
+              console.log('Pet deleted!');
+            });
+          const reference = storage().ref(`${userId}/${petId}`);
+          reference.delete();
+        },
+      },
+      {
+        text: 'No',
+        style: 'cancel',
+      },
+    ]);
+  };
   return (
     <Card>
       <Pressable
@@ -14,9 +43,10 @@ export const PetListItem = ({onPress, name, photoUrls, index}) => {
             : styles.innerContainer
         }
         android_ripple={{color: Colors.accent.light}}
-        onPress={onPress}>
+        onPress={onPress}
+        onLongPress={() => deletePet(petId)}>
         <View style={styles.dataContainer}>
-          <PetPhoto photoUrl={photoUrls[index]} />
+          <PetPhoto photoUrl={getPetImage()} />
           <Text style={styles.text}>{name}</Text>
         </View>
       </Pressable>

@@ -62,7 +62,7 @@ const App = () => {
               options={{title: `${userMessage}`}}
             />
             <Stack.Screen
-              name="PetPanel"
+              name="PetScreen"
               component={PetScreen}
               options={{title: `${userMessage}`}}
             />
