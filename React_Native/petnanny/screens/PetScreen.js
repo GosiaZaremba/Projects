@@ -43,7 +43,12 @@ export const PetScreen = ({route}) => {
     <View style={styles.outerContainer}>
       <Logo />
       <Card>
-        <PetInfo pet={singlePet} photoUris={photoUris} index={index} />
+        <PetInfo
+          pet={singlePet}
+          photoUris={photoUris}
+          index={index}
+          petId={petId}
+        />
         <PetFeeding userId={userId} petId={petId} />
         <PetWalks userId={userId} petId={petId} />
         <PetPlays userId={userId} petId={petId} />
