@@ -15,13 +15,13 @@ import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {PetScreen} from './screens/PetScreen';
 import {DrawerNav} from './components/DrawerNav';
+import {EditPetScreen} from './screens/EditPetScreen';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
-  const [userMessage, setUserMessage] = useState('');
 
   function onAuthStateChanged(user) {
     setUser(user);
@@ -56,16 +56,9 @@ const App = () => {
             screenOptions={{
               headerShown: false,
             }}>
-            <Stack.Screen
-              name="Nav"
-              component={DrawerNav}
-              options={{title: `${userMessage}`}}
-            />
-            <Stack.Screen
-              name="PetScreen"
-              component={PetScreen}
-              options={{title: `${userMessage}`}}
-            />
+            <Stack.Screen name="Nav" component={DrawerNav} />
+            <Stack.Screen name="PetScreen" component={PetScreen} />
+            <Stack.Screen name="EditPetScreen" component={EditPetScreen} />
           </Stack.Navigator>
         </ImageBackground>
       </LinearGradient>
