@@ -4,11 +4,14 @@ import { Colors } from '../../../constants/colors';
 import { styles } from './CustomButton.styles';
 
 export type Props = {
-    onPress: () => void;
+    onPressButton: () => void;
     buttonTitle: string;
 };
 
-export const CustomButton: React.FC<Props> = ({ buttonTitle, onPress }) => {
+export const CustomButton: React.FC<Props> = ({
+    buttonTitle,
+    onPressButton,
+}) => {
     return (
         <View style={styles.buttonOuterContainer}>
             <Pressable
@@ -18,7 +21,7 @@ export const CustomButton: React.FC<Props> = ({ buttonTitle, onPress }) => {
                         : styles.buttonInnerContainer
                 }
                 android_ripple={{ color: Colors.primary.light }}
-                onPress={onPress}
+                onPress={onPressButton}
             >
                 <Text style={styles.buttonText}>{buttonTitle}</Text>
             </Pressable>

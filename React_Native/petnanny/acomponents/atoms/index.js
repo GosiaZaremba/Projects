@@ -8,5 +8,6 @@ export { CustomIcon } from './CustomIcon/CustomIcon';
 export { TextMedium } from './TextMedium/TextMedium';
 export { TextSmall } from './TextSmall/TextSmall';
 export { TextLarge } from './TextLarge/TextLarge';
+export { ImagePreview } from './ImagePreview/ImagePreview';
 
 export { CustomInputReference } from './CustomInput/CustomInput';

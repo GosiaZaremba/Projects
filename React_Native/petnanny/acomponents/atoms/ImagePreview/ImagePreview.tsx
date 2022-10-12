@@ -1,24 +1,21 @@
 import React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
-import {Colors} from '../../constants/colors';
-import {Button} from '../buttons/Button';
+import { Image, View } from 'react-native';
+import { CustomButton } from '../CustomButton/CustomButton';
+import { styles } from './ImagePreview.styles';
 
-export const ImagePreview = ({pickedImage, getImage}) => {
-  return (
-    <View>
-      <Image style={styles.imagePreview} source={{uri: pickedImage}} />
-      <Button onPress={getImage}>Change photo</Button>
-    </View>
-  );
+export type Props = {
+    pickedImage: string;
+    getImage: () => void;
 };
 
-const styles = StyleSheet.create({
-  imagePreview: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    borderWidth: 1,
-    borderColor: Colors.secondary.light,
-    alignSelf: 'center',
-  },
-});
+export const ImagePreview: React.FC<Props> = ({ pickedImage, getImage }) => {
+    return (
+        <View>
+            <Image style={styles.imagePreview} source={{ uri: pickedImage }} />
+            <CustomButton
+                onPressButton={getImage}
+                buttonTitle={'Change the photo'}
+            />
+        </View>
+    );
+};

@@ -1,16 +1,23 @@
 import React from 'react';
-import {View} from 'react-native';
-import {Button} from '../buttons/Button';
-import {ImagePreview} from './ImagePreview';
+import { View } from 'react-native';
+import { CustomButton, ImagePreview } from '../../atoms';
 
-export const AppImagePicker = ({getImage, pickedImage}) => {
-  return (
-    <View>
-      {pickedImage ? (
-        <ImagePreview pickedImage={pickedImage} getImage={getImage} />
-      ) : (
-        <Button onPress={getImage}>Add photo</Button>
-      )}
-    </View>
-  );
+export type Props = {
+    getImage: () => void;
+    pickedImage: string;
+};
+
+export const AppImagePicker: React.FC<Props> = ({ getImage, pickedImage }) => {
+    return (
+        <View>
+            {pickedImage ? (
+                <ImagePreview pickedImage={pickedImage} getImage={getImage} />
+            ) : (
+                <CustomButton
+                    onPressButton={getImage}
+                    buttonTitle={'Add a photo'}
+                />
+            )}
+        </View>
+    );
 };
