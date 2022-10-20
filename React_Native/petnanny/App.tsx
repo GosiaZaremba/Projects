@@ -7,13 +7,18 @@ import 'react-native-gesture-handler';
  * @flow strict-local
  */
 import React, { useState, useEffect } from 'react';
-import { CustomButton } from './acomponents/atoms';
+import { AppDatePicker, PetListItem } from './acomponents/molecules';
+import { PetForm } from './acomponents/organisms';
 
 const App: React.FC = () => {
-    const onPressButton = () => {
-        console.log('click');
+    const onPress = () => {
+        console.log('press');
     };
-    return <CustomButton onPressButton={onPressButton} buttonTitle={'Title'} />;
+
+    const onLongPress = () => {
+        console.log('long press');
+    };
+    return <PetForm />;
 };
 
 export default App;

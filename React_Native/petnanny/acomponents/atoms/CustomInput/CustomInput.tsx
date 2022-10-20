@@ -14,6 +14,8 @@ export type Props = {
     textContentType: any;
     autoCapitalize: any;
     secureTextEntry: boolean;
+    multiline: boolean;
+    maxLength: number;
 };
 
 export type CustomInputReference = {
@@ -32,6 +34,8 @@ export const CustomInputWithReference: React.ForwardRefRenderFunction<
         textContentType,
         autoCapitalize,
         secureTextEntry,
+        multiline,
+        maxLength,
     },
     ref
 ) => {
@@ -64,6 +68,8 @@ export const CustomInputWithReference: React.ForwardRefRenderFunction<
             onChangeText={onChangeText}
             secureTextEntry={secureTextEntry}
             ref={inputReference}
+            maxLength={maxLength}
+            multiline={multiline}
         />
     );
 };

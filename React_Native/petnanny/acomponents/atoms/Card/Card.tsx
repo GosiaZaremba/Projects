@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { View } from 'react-native';
 import { styles } from './Card.styles';
 
 export type Props = {
@@ -9,8 +9,8 @@ export type Props = {
 
 export const Card: React.FC<Props> = ({ children, color }) => {
     return (
-        <ScrollView style={[styles.card, { backgroundColor: color }]}>
+        <View style={[styles.card, { backgroundColor: color }]}>
             {children}
-        </ScrollView>
+        </View>
     );
 };
