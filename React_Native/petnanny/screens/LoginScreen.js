@@ -1,15 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Alert, StyleSheet, TextInput, View} from 'react-native';
 import {Logo} from '../components/Logo';
 import {Colors} from '../constants/colors';
 import {Button} from '../components/buttons/Button';
-import {useState} from 'react';
 import auth from '@react-native-firebase/auth';
 
 export const LoginScreen = () => {
-  const [emailAddress, setEmailAdress] = useState('');
+  const [emailAdress, setEmailAdress] = useState('');
   const [password, setPassword] = useState('');
-  const [userName, setUserName] = useState('');
 
   const emailHandler = enteredText => {
     setEmailAdress(enteredText);
@@ -18,33 +16,25 @@ export const LoginScreen = () => {
     setPassword(enteredText);
   };
 
-  // const validateEmail = emailAddress => {
-  //   var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  //   return re.test(emailAddress);
-  // };
-
-  // console.log(validateEmail('anystring@anystring.anystring'));
-
   const onPressHandler = () => {
     auth()
-      .signInWithEmailAndPassword(emailAddress, password)
+      .signInWithEmailAndPassword(emailAdress, password)
       .then(() => {
         setEmailAdress('');
         setPassword('');
       })
       .catch(error => {
-        if (error.code === 'auth/invalid-password') {
+        if (error.code === 'auth/wrong-password') {
           Alert.alert('Invalid password!', 'Please, try again.');
         }
 
-        if (error.code === 'auth/invalid-email') {
+        if (error.code === 'auth/wrong-email') {
           Alert.alert('Invalid email!', 'Please, try again.');
         }
 
         console.error(error);
       });
   };
-
   return (
     <View style={styles.outerContainer}>
       <Logo />
@@ -54,9 +44,9 @@ export const LoginScreen = () => {
           placeholder="Email adress"
           autoCorrect={false}
           spellCheck={false}
-          textContentType={'emailAddress'}
+          textContentType={'emailAdress'}
           autoCapitalize="none"
-          value={emailAddress}
+          value={emailAdress}
           onChangeText={emailHandler}
         />
         <TextInput
