@@ -1,17 +1,64 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, {
+    useState,
+    useRef,
+    useImperativeHandle,
+    forwardRef,
+} from 'react';
+import { View, Alert } from 'react-native';
+import ImageCropPicker from 'react-native-image-crop-picker';
 import { CustomButton, ImagePreview } from '../../atoms';
 
-export type Props = {
-    getImage: () => void;
-    pickedImage: string;
+export type Props = {};
+
+export type AppImagePickerReference = {
+    getValue: () => string;
+    focus: () => void;
 };
 
-export const AppImagePicker: React.FC<Props> = ({ getImage, pickedImage }) => {
+export const AppImagePickerWithRef: React.ForwardRefRenderFunction<
+    AppImagePickerReference,
+    Props
+> = ({}, ref) => {
+    const [pickedImageUri, setPickedImageUri] = useState<string>('');
+    const appImagePickerReference = React.createRef();
+
+    useImperativeHandle(ref, () => ({
+        getValue: () => {
+            return pickedImageUri;
+        },
+        focus: () => {
+            // pickedImageUri?.current?.focus();
+        },
+    }));
+    const getImage = () => {
+        ImageCropPicker.openPicker({
+            width: 150,
+            height: 150,
+            cropping: true,
+            ref: appImagePickerReference,
+        })
+            .then((image) => {
+                setPickedImageUri(image.path);
+                console.log(image.path);
+                console.log(typeof image.path);
+            })
+            .catch((error) => {
+                if (error.code === 'E_PICKER_CANCELLED')
+                    Alert.alert(
+                        `You did't pick any photo.`,
+                        'Please, try again.'
+                    );
+            });
+    };
+
+    // console.log(appImagePickerReference);
     return (
         <View>
-            {pickedImage ? (
-                <ImagePreview pickedImage={pickedImage} getImage={getImage} />
+            {pickedImageUri ? (
+                <ImagePreview
+                    pickedImage={pickedImageUri}
+                    getImage={getImage}
+                />
             ) : (
                 <CustomButton
                     onPressButton={getImage}
@@ -21,3 +68,5 @@ export const AppImagePicker: React.FC<Props> = ({ getImage, pickedImage }) => {
         </View>
     );
 };
+
+export const AppImagePicker = forwardRef(AppImagePickerWithRef);

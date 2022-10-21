@@ -5,3 +5,4 @@ export { PetListItem } from './PetListItem/PetListItem';
 export { AppDatePicker } from './AppDatePicker/AppDatePicker';
 
 export { AppDatePickerReference } from './AppDatePicker/AppDatePicker';
+export { AppImagePickerReference } from './AppImagePicker/AppImagePicker';
