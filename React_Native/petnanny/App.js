@@ -44,7 +44,7 @@ const App = () => {
   return (
     <NavigationContainer theme={navTheme}>
       <LinearGradient
-        colors={[Colors.primary.medium, Colors.accent.medium]}
+        colors={[Colors.primary.medium, Colors.secondary.light]}
         style={styles.rootContainer}>
         <ImageBackground
           source={require('./assets/bckg.png')}

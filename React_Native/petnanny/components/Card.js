@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     margin: 10,
     overflow: 'hidden',
     elevation: 7,
-    backgroundColor: Colors.accent.medium,
+    backgroundColor: Colors.accent.light,
     // padding: 10,
   },
 });
